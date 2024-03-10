@@ -1,6 +1,7 @@
+import json
 import random
 from pprint import pprint
-from typing import Callable, Iterable, Generator
+from typing import Callable
 from constraint import Problem
 
 
@@ -58,6 +59,21 @@ def generate_candidates(mr: Callable, p: list[list[int]], c: list[Callable], pca
     return candidates
 
 
+def sorting():
+    # Example of usage for sorting function
+    p = [[1, 2, 3, 4, 5]]  # Domain of the input parameter (list of integers)
+    const = []  # No constraints for this example
+    pca = [[1, 3, 2, 5, 4]]  # Initial test case
+
+    def mr(a, a_):
+        b = sorted(a)
+        b_ = sorted(a_)
+        return b == b_
+
+    candidates = generate_candidates(mr, p, const, pca, 10, 0.5)
+    pprint(candidates)
+
+
 def main():
     # Example of usage
     p = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -76,5 +92,34 @@ def main():
     pprint(candidates)
 
 
+def read_params_from_json(f: str):
+    with open(f, "r") as file:
+        data = json.load(file)
+
+    params = []
+    for var, values in data["variables"].items():
+        params.append([])
+        for value in values:
+            if isinstance(value, dict):
+                if "_type" not in value:
+                    raise ValueError("Invalid type")
+
+                if value["_type"] == "range":
+                    params[-1].append(range(value["from"], value["to"]))
+                else:
+                    raise ValueError("Invalid type")
+            else:
+                params[-1].append(value)
+
+    variables = ", ".join(data["variables"].keys())
+    constraints = [f"lambda {variables}, *args: " + constraint for constraint in data["constraints"]]
+    constraints = list(map(eval, constraints))
+
+    test_case = [p[0] for p in params]
+
+    return params, constraints, [test_case]
+
+
 if __name__ == '__main__':
-    main()
+    params, constrains, pca = read_params_from_json("sorting.json")
+    test_cases = generate_candidates(lambda a, a_: sorted(a) == sorted(a_), params, constrains, pca, 10, 0.5)

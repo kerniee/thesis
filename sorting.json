@@ -1,0 +1,82 @@
+{
+  "variables": {
+    "same_number": [
+      0,
+      {
+        "_type": "range",
+        "from": 2,
+        "to": 10
+      },
+      {
+        "_type": "range",
+        "from": 10,
+        "to": 20
+      }
+    ],
+    "negative": [
+      0,
+      {
+        "_type": "range",
+        "from": 1,
+        "to": 20
+      },
+      {
+        "_type": "range",
+        "from": 20,
+        "to": 40
+      }
+    ],
+    "positive": [
+      0,
+      {
+        "_type": "range",
+        "from": 1,
+        "to": 20
+      },
+      {
+        "_type": "range",
+        "from": 20,
+        "to": 40
+      }
+    ],
+    "zero": [
+      0,
+      {
+        "_type": "range",
+        "from": 1,
+        "to": 5
+      },
+      {
+        "_type": "range",
+        "from": 5,
+        "to": 10
+      }
+    ],
+    "add": [
+      0,
+      {
+        "_type": "range",
+        "from": 1,
+        "to": 5
+      },
+      {
+        "_type": "range",
+        "from": 5,
+        "to": 10
+      }
+    ],
+    "order": [
+      "positive",
+      "negative",
+      "out of order"
+    ]
+  },
+  "constraints": [
+    "zero != 0 or positive != 0 or negative != 0",
+    "zero + positive >= same_number",
+    "zero + negative >= same_number",
+    "positive + negative >= same_number",
+    "zero <= same_number",
+    "same_number - zero != 1"
+  ]
+}
