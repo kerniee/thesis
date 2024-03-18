@@ -99,20 +99,21 @@ def read_params_from_json(f: str):
     params = []
     for var, values in data["variables"].items():
         params.append([])
-        for value in values:
+        for i, value in enumerate(values):
             if isinstance(value, dict):
                 if "_type" not in value:
                     raise ValueError("Invalid type")
 
                 if value["_type"] == "range":
-                    params[-1].append(range(value["from"], value["to"]))
+                    # params[-1].append(range(value["from"], value["to"]))
+                    params[-1].append(i)
                 else:
                     raise ValueError("Invalid type")
             else:
                 params[-1].append(value)
 
-    variables = ", ".join(data["variables"].keys())
-    constraints = [f"lambda {variables}, *args: " + constraint for constraint in data["constraints"]]
+    # variables = ", ".join(data["variables"].keys())
+    constraints = [f"lambda *v: " + constraint for constraint in data["constraints"]]
     constraints = list(map(eval, constraints))
 
     test_case = [p[0] for p in params]

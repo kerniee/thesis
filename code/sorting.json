@@ -72,11 +72,9 @@
     ]
   },
   "constraints": [
-    "zero != 0 or positive != 0 or negative != 0",
-    "zero + positive >= same_number",
-    "zero + negative >= same_number",
-    "positive + negative >= same_number",
-    "zero <= same_number",
-    "same_number - zero != 1"
+    "v[0] != 0 or v[1] != 0 or v[2] != 0",
+    "v[1] != 0 or v[2] != 0 or v[0] != v[2]",
+    "v[3] != v[1] or v[0] > 0",
+    "v[3] != v[2] or v[0] > 0"
   ]
 }

@@ -1,0 +1,93 @@
+\chapter{Literature Review}
+\label{chap:lr}
+
+% Cybersecurity threats are evolving as technology advances and new vulnerabilities are created, requiring organizations to continuously assess and address these vulnerabilities to maintain a secure environment.
+
+Cybersecurity threats require innovative testing methods to ensure the reliability and security of the software. This literature review delves into the current state-of-the-art in combinatorial testing (CT) and metamorphic testing (MT) for cybersecurity, explores the integration of CT and MT, and assesses the efficiency of these methods working together and their potential applications in cybersecurity.
+
+\section{Criteria and Process}
+
+The selection and analysis of literature for this review were guided by specific criteria and a structured process. Search keywords included "Combinatorial Testing in Cybersecurity," "Metamorphic Testing in Cybersecurity," and "Integration of CT and MT in Cybersecurity." The search was conducted across multiple academic databases, including IEEE Xplore, ACM Digital Library, and Google Scholar. Articles were chosen based on the number of citations, the date of publication, the popularity of the journal, and relevance to the topic. The method involved a critical review of selected articles, focusing on their methodologies, findings, and implications in the context of cybersecurity testing.
+
+
+\section{Combinatorial Testing in Cybersecurity}
+
+Within the cybersecurity domain, combinatorial testing has been effectively utilized, particularly in generating test cases aimed at identifying vulnerabilities like SQL injection \cite{Simos2019SQL} and XSS injections \cite{Garn2014XSS}. The focus of both studies was primarily on a singular type of vulnerability. These investigations have demonstrated that combinatorial testing is both rapid and efficient in uncovering vulnerabilities. However, it is important to note that the scope of these studies is somewhat restricted in terms of the range of technologies evaluated.
+
+\section{Metamorphic Testing in Cybersecurity}
+
+The literature on Metamorphic Testing (MT) in cybersecurity provides insightful perspectives on its application and effectiveness. Segura \textit{et al.} highlight the fundamental concept of MT to overcome the oracle problem in software testing, where the correctness of the output is ambiguous \cite{CybersecurityMT}. This aspect is particularly crucial in cybersecurity, where accurate results are essential but often difficult to define.
+
+In their exploration of MT's application to cybersecurity, researchers have demonstrated its efficacy in detecting hidden bugs in vital applications. A notable example is the testing of compilers and code obfuscators, where traditional testing methods may fail \cite{CybersecurityMT} \cite{GLSLFuzz}. The use of MT in such scenarios underlines its ability to handle complex and critical software systems.
+
+The development and implementation of the METRIC framework \cite{ChenPoon2016} mark a significant advancement in MT. This approach systematically identifies metamorphic relations (MRs) through a category-choice framework, simplifying the process of MR identification which was previously manual and ad hoc. This systematic approach is particularly advantageous in cybersecurity, where the generation of reliable test oracles is challenging.
+
+MT's role in cybersecurity extends to various practical applications. It facilitates negative testing and the evaluation of security-related functionalities, often problematic with conventional testing methods. A case in point is the use of MT in identifying vulnerabilities such as the Heartbleed bug in OpenSSL, demonstrating its ability to handle complex real-world cybersecurity issues \cite{OpenSSLMT}.
+
+\section{Integration of Combinatorial and Metamorphic Testing}
+
+The combination of Combinatorial Testing (CT) and Metamorphic Testing (MT) is explored by Niu \textit{et al.} \cite{comer} in an innovative approach to software testing. Their study tackles the challenge in CT related to the creation of automated test oracles, a problem that often leads to manual and error-prone processes in testing.
+
+Niu \textit{et al.} introduce a new method called COMER, which blends MT with CT. This method focuses on forming pairs of test cases, known as Metamorphic Groups (MGs), based on specific metamorphic relations (MRs). These MGs allow for automatic checking of test results by verifying if the outputs go against the MRs.
+
+\section{Conclusion}
+
+The exploration of Combinatorial Testing (CT) and Metamorphic Testing (MT) within cybersecurity, as outlined in this literature review, lays the groundwork for advancing the field of software testing. Although these methodologies have been examined separately in various contexts, their integration, especially in addressing cybersecurity challenges, opens new avenues for research. The innovative approach of combining CT and MT, as proposed by Niu \textit{et al.} \cite{comer}, demonstrates a promising direction towards automating and enhancing the accuracy of testing processes. This research seeks to build on these foundational studies, focusing on the implications and practical applications of integrating CT and MT in the domain of cybersecurity, a critical area that has not been fully explored in the existing literature.
+
+\newpage
+
+
+% \begin{longtable}{c|c}
+% \caption[This is the title I want to appear in the List of Tables]{Simulation Parameters} \label{table:secsimulation_params} \\
+% \hline
+% A & B  \\
+% \hline
+% \endfirsthead
+% \multicolumn{2}{@{}l}{} \\
+% \hline
+% A & B \\
+% \hline
+% \endhead
+% \hline
+%  \textbf{Parameter} & \textbf{Value}\\
+%  \hline
+%  Number of vehicles & $|\mathcal{V}|$\\
+%  \hline
+%  Number of RSUs & $|\mathcal{U}|$\\
+%  \hline
+%  RSU coverage radius & 150 m\\
+%  \hline
+%  V2V communication radius & 30 m\\
+%  \hline
+%  Smart vehicle antenna height & 1.5 m\\
+%  \hline
+%  RSU antenna height & 25 m\\
+%  \hline
+%  Smart vehicle maximum speed & $v_{max}$ m/s\\
+%  \hline
+%  Smart vehicle minimum speed & $v_{min}$ m/s\\
+%  \hline
+%  Common smart vehicle cache capacities & $[50, 100, 150, 200, 250]$ mb\\
+%  \hline
+%  Common RSU cache capacities & $[5000,1000,1500,2000,2500]$ mb\\
+%  \hline
+%  Common backhaul rates & $[75, 100, 150]$ mb/s\\
+%  \hline
+% \end{longtable}
+
+% \begin{figure}[hbt]
+% \centering
+% \includegraphics[]{figs/inno.png}
+% \caption{One kernel at $x_s$ (\emph{dotted kernel}) or two kernels at
+% $x_i$ and $x_j$ (\textit{left and right}) lead to the same summed estimate
+% at $x_s$. This shows a figure consisting of different types of
+% lines. Elements of the figure described in the caption should be set in
+% italics, in parentheses, as shown in this sample caption.}
+% \label{fig:secex}
+% \end{figure}
+
+% This description implies several essential properties of the task at hand:
+% \begin{enumerate}
+%     \item Watermark must contain all necessary information, but still, be placeable and recognizable even on smaller images. The produced watermark must be compact but have the possibility to store enough information. 
+%     \item To prevent easy tampering, the watermark must be invisible to the naked eye (and, preferably, to basic image parsing tools). If malefactor does not know about the existence of watermark, they might not even try to remove it and disable it. 
+% \end{enumerate}
