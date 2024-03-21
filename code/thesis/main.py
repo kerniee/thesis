@@ -46,13 +46,11 @@ def generate_candidates(mr: Callable, p: list[list[int]], c: list[Callable], pca
     candidates = []
     r = random.random()
     if r <= pr:
-        print("Using CSP Solver...")
         tpre = rand_select(pca)
         for _ in range(rep):
             t = csp_solver(mr, tpre, p, c)
             candidates.append(t)
     else:
-        print("Using Random Test Case Generator...")
         for _ in range(rep):
             t = random_testcase(p, c)
             candidates.append(t)

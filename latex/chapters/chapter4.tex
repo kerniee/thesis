@@ -1,53 +1,37 @@
 \chapter{Implementation}
 \label{chap:impl}
 
-\begin{longtable}{c|c}
-\caption[This is the title I want to appear in the List of Tables]{Simulation Parameters} \label{table:fousimulation_params} \\
-\hline
-A & B  \\
-\hline
-\endfirsthead
-\multicolumn{2}{@{}l}{} \\
-\hline
-A & B \\
-\hline
-\endhead
-\hline
- \textbf{Parameter} & \textbf{Value}\\
- \hline
- Number of vehicles & $|\mathcal{V}|$\\
- \hline
- Number of RSUs & $|\mathcal{U}|$\\
- \hline
- RSU coverage radius & 150 m\\
- \hline
- V2V communication radius & 30 m\\
- \hline
- Smart vehicle antenna height & 1.5 m\\
- \hline
- RSU antenna height & 25 m\\
- \hline
- Smart vehicle maximum speed & $v_{max}$ m/s\\
- \hline
- Smart vehicle minimum speed & $v_{min}$ m/s\\
- \hline
- Common smart vehicle cache capacities & $[50, 100, 150, 200, 250]$ mb\\
- \hline
- Common RSU cache capacities & $[5000,1000,1500,2000,2500]$ mb\\
- \hline
- Common backhaul rates & $[75, 100, 150]$ mb/s\\
- \hline
-\end{longtable}
+This section outlines how I created my version of the COMER framework. Additionally, it presents the outcomes of test executions and compare it to the original Java COMER framework implementation.
 
-\begin{figure}[hbt]
-\centering
-\includegraphics[]{figs/inno.png}
-\caption{One kernel at $x_s$ (\emph{dotted kernel}) or two kernels at
-$x_i$ and $x_j$ (\textit{left and right}) lead to the same summed estimate
-at $x_s$. This shows a figure consisting of different types of
-lines. Elements of the figure described in the caption should be set in
-italics, in parentheses, as shown in this sample caption.}
-\label{fig:fouex}
-\end{figure}
+\section{Details of Implementation}
 
-\ldots
+The implementation is encapsulated within a Python library, which can be seamlessly installed via the Python package manager, pip. This library facilitates testing procedures by requiring input parameters, constraints, metamorphic relations and producing concrete test cases. Library can be integrated with popular Python testing frameworks like Pytest and Unittest.
+Under the hood, the library utilizes the \textit{python-constraint} package, which is a Python constraint solver. The main function responsible for generating test cases is as follows:
+
+\begin{lstlisting}[language=Python]
+def generate_candidates(
+    mr: Callable, p: list[list[int]],
+    c: list[Callable], pca: list[list[int]],
+    rep: int,  pr: float) -> list[list[int]
+]:
+    """Generates a set of candidate test cases."""
+    candidates = []
+    r = random.random()
+    if r <= pr:
+        tpre = rand_select(pca)
+        for _ in range(rep):
+            t = csp_solver(mr, tpre, p, c)
+            candidates.append(t)
+    else:
+        for _ in range(rep):
+            t = random_testcase(p, c)
+            candidates.append(t)
+    return candidates
+
+\end{lstlisting}
+
+The function adheres to the foundational principles of the COMER framework. Specifically, based on a given probability, $pr$, function choose either Combinatorial Testing (CT) or Metamorphic Testing (MT) based approach. In CT, it uses a Constraint Satisfaction Problem (CSP) solver to generate test cases iteratively. In MT, it selects an existing test case from the provided pool ($pca$) and generates subsequent test cases using the CSP solver.
+
+\section{Evaluation}
+
+To evaluate the efficacy of my implementation of the COMER framework, I conducted a series of experiments comparing its performance with the original Java implementation by Niu \textit{et al.} \cite{comer}. The experiments focused on assessing the framework's ability to generate test cases accurately and efficiently across various scenarios.
