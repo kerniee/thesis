@@ -2,14 +2,16 @@
 name = "thesis"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Matvey Abramov <m.abramov@innopolis.university>"]
 readme = "README.md"
-include = ["src"]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 python-constraint = "^1.4.0"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
 
 [build-system]
 requires = ["poetry-core"]
