@@ -1,0 +1,47 @@
+default_language_version:
+  python: python3.12
+default_install_hook_types:
+  - pre-commit
+  - post-checkout
+  - post-merge
+
+repos:
+  # https://python-poetry.org/docs/pre-commit-hooks/
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.8.2
+    hooks:
+    -   id: poetry-check
+        args: ["-C", "./code"]
+    -   id: poetry-lock
+        args: ["-C", "./code"]
+    -   id: poetry-install
+        args: ["-C", "./code"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.4.3
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format
+
+  # if pre-commit hooks fail with `Executable `poetry` not found`, do this:
+  #   ```
+  #   sudo ln -s $(which poetry) /usr/local/bin/poetry
+  #   ```
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        require_serial: true
+        entry: poetry -C code run mypy --config-file code/pyproject.toml
+        language: system
+        types: [ python ]

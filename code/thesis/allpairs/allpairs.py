@@ -44,7 +44,9 @@ def cmp_item(lhs, rhs):
 
 
 class AllPairs:
-    def __init__(self, parameters, filter_func=lambda x: True, previously_tested=None, n=2):
+    def __init__(
+        self, parameters, filter_func=lambda x: True, previously_tested=None, n=2
+    ):
         """
         TODO: check that input arrays are:
             - (optional) has no duplicated values inside single array / or compress such values
@@ -80,7 +82,9 @@ class AllPairs:
             tested = []
             for i, val in enumerate(arr):
                 idxs = [
-                    Item(item.id, 0) for item in self.__working_item_matrix[i] if item.value == val
+                    Item(item.id, 0)
+                    for item in self.__working_item_matrix[i]
+                    if item.value == val
                 ]
 
                 if len(idxs) != 1:
@@ -158,7 +162,9 @@ class AllPairs:
         if isinstance(value, OrderedDict):
             for parameter_list in value.values():
                 if not parameter_list:
-                    raise ValueError("each parameter arrays must have at least one item")
+                    raise ValueError(
+                        "each parameter arrays must have at least one item"
+                    )
 
             return
 
@@ -185,9 +191,13 @@ class AllPairs:
             weights = []
             weights.extend(
                 [-len(new_combs[-1])]  # node that creates most new pairs is the best
-                + [len(data_node.out)]  # less used outbound connections produce more new pairs
+                + [
+                    len(data_node.out)
+                ]  # less used outbound connections produce more new pairs
                 + [len(x) for x in reversed(new_combs[:-1])]
-                + [-len(data_node.in_)]  # prefer node with most free inbound connections
+                + [
+                    -len(data_node.in_)
+                ]  # prefer node with most free inbound connections
                 + [data_node.counter]  # less used node is better
             )
 

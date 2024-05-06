@@ -12,6 +12,9 @@ python-constraint = "^1.4.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
+ruff = "^0.4.3"
+ruff-lsp = "^0.0.53"
+mypy = "^1.10.0"
 
 [build-system]
 requires = ["poetry-core"]

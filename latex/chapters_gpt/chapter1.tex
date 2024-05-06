@@ -1,0 +1,52 @@
+\chapter{Introduction}
+\label{chap:intro}
+
+\section{Motivation}
+
+In recent years, the rapid evolution of software development has resulted in a significant surge in software errors and vulnerabilities. The escalating number of Common Vulnerabilities and Exposures (CVEs) reported each year reflects the growing challenges faced in ensuring the security and reliability of software systems \cite{CVE}. As the digital landscape becomes increasingly complex and interconnected, the need for robust cybersecurity measures has become paramount.
+
+The traditional approaches to software testing are often inadequate in detecting and mitigating vulnerabilities effectively. With the adoption of Continuous Integration practices as a standard in the industry, there's a heightened demand for automated testing methods that can seamlessly integrate into the development workflow. The primary objective is to identify and address bugs and vulnerabilities at the earliest stages of the software development life cycle.
+
+Several techniques have been employed to enhance software testing and security, including but not limited to code analysis, fuzzing, and domain testing. While these methods have proven to be valuable, there remains a pressing need for more efficient and effective approaches to bolster cybersecurity measures.
+
+\section{Proposed Approach}
+
+This thesis proposes a novel methodology that combines two distinct testing techniques: Metamorphic Testing and Combinatorial Testing. The proposed approach adopts a semi-automated methodology for generating test cases. By leveraging both metamorphic and Combinatorial Testing principles, the aim is to streamline the testing process while ensuring adequate coverage of the system under test. This hybrid approach strikes a balance between manual intervention and automated testing, optimizing the efficiency and effectiveness of the testing process.
+
+One of the key advantages of the proposed method is its ability to achieve comprehensive test coverage with a relatively small number of test cases. Combinatorial Testing, by systematically exploring the interaction of input parameters, helps in reducing the number of test cases required. Meanwhile, Metamorphic Testing enhances the efficiency of the testing process by leveraging the inherent properties of the system.
+
+\section{Terminology}
+
+This section presents an overview of key concepts in the field of metamorphic and Combinatorial Testing, focusing on their applications in cybersecurity. The definitions below lay the groundwork for understanding the methodologies discussed in subsequent sections.
+
+\subsection{Black Box Testing}
+
+\textbf{Black Box Testing} is a methodology where the internal workings or implementation details of the system under test are not known or considered by the tester. Testing is based solely on defined specifications or thought specs. Black-box testing relies only on the input/output behavior of the software \cite{Testing}.
+
+Some examples of black-box testing techniques include:
+\begin{itemize}
+    \item Metamorphic Testing
+    \item Combinatorial Testing
+    \item Fuzz Testing
+    \item Boundary Value Analysis
+\end{itemize}
+
+\subsection{Metamorphic Testing}
+
+\textbf{Metamorphic Testing} is an effective technique for alleviating the oracle problem, testing "untestable" programs where failures are not revealed by checking individual outputs, but by checking expected relations among multiple executions of the program under test \cite{CybersecurityMT}.
+
+\textbf{Metamorphic Relation (MR)} is a property or characteristic that should be maintained between multiple test case outputs. If an MR is violated, it suggests a potential defect in the software \cite{MetamorphicTestingReview}.
+
+\textbf{Metamorphic Group (MG)} is a multiple sequence of inputs related to each other by a particular metamorphic relation. It consists of a sequence of source inputs and follow-up inputs \cite{MetamorphicTestingReview}. \textit{Example:} \textit{MR1: $f(x, y) = f(y, x)$} is a metamorphic relation, and \textit{MG1: {1, 2} $\rightarrow$ {2, 1}} is a metamorphic group.
+
+\subsection{Combinatorial Testing}
+
+\textbf{Combinatorial Testing} is a software testing technique that focuses on testing subsets of combinations of input values and preconditions to uncover defects. It's particularly effective when the number of parameters and their possible values is too large for exhaustive testing \cite{FELDERER20161}.
+
+Consider a function $f(a, b, c)$ with boolean parameters.
+
+\textbf{Test Case} is a set of conditions or variables under which a tester will determine whether a system under test satisfies requirements or works correctly \cite{comer}. For our function $f(a, b, c)$, a test case could be \textit{a = 1, b = 0, c = 1}.
+
+\textbf{t-way combination} is a set of t input values, one from each of t input parameters \cite{comer}. For our function $f(a, b, c)$, a 2-way combination could be \textit{a = 1, b = 0}.
+
+\textbf{t-way covering array} is a set of t-way combinations that covers all t-way combinations of input values. It is used to ensure that all combinations of input valu

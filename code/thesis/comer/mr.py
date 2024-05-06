@@ -6,5 +6,7 @@ class MetamorphicRelation:
 
     def apply(self, test_case):
         # Apply the transformation rule to the input variables
-        transformed_input = [self.transformation_rule(x) for x in test_case[self.input_variable]]
+        transformed_input = [
+            self.transformation_rule(x) for x in test_case[self.input_variable]
+        ]
         return {**test_case, **{self.output_variable: transformed_input}}

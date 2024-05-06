@@ -23,7 +23,7 @@ class Node:
         self.__counter += 1
 
 
-key_cache = {}
+key_cache: dict = {}
 
 
 def key(items):
@@ -70,4 +70,4 @@ class PairsStorage:
             curr = self.__nodes[id]
             curr.inc_counter()
             curr.in_.update(ids[:i])
-            curr.out.update(ids[i + 1:])
+            curr.out.update(ids[i + 1 :])

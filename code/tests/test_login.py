@@ -11,24 +11,32 @@ def add_prefix(ts: dict, prefix: str) -> dict:
 
 
 def extract_prefix(ts: dict, prefix: str) -> dict:
-    return {key.replace(prefix, "", 1): value for key, value in ts.items() if key.startswith(prefix)}
+    return {
+        key.replace(prefix, "", 1): value
+        for key, value in ts.items()
+        if key.startswith(prefix)
+    }
 
 
-input_field_params = OrderedDict({
-    "len": [0, 1, 5, 10, 50, 500, 50000],
-    "has_lower_case": [True, False],
-    "has_upper_case": [True, False],
-    "has_special_symbols": [True, False],
-    "has_digits": [True, False],
-    "has_unicode": [True, False],
-    "has_whitespace": [True, False],
-})
+input_field_params = OrderedDict(
+    {
+        "len": [0, 1, 5, 10, 50, 500, 50000],
+        "has_lower_case": [True, False],
+        "has_upper_case": [True, False],
+        "has_special_symbols": [True, False],
+        "has_digits": [True, False],
+        "has_unicode": [True, False],
+        "has_whitespace": [True, False],
+    }
+)
 
-params = OrderedDict({
-    **add_prefix(input_field_params, "username_"),
-    **add_prefix(input_field_params, "password_"),
-    "swapped": [True, False]
-})
+params = OrderedDict(
+    {
+        **add_prefix(input_field_params, "username_"),
+        **add_prefix(input_field_params, "password_"),
+        "swapped": [True, False],
+    }
+)
 
 
 @lru_cache
@@ -50,7 +58,8 @@ def get_unicode_alphabet():
     ]
 
     alphabet = [
-        chr(code_point) for current_range in include_ranges
+        chr(code_point)
+        for current_range in include_ranges
         for code_point in range(current_range[0], current_range[1] + 1)
     ]
     return "".join(alphabet)
@@ -74,7 +83,7 @@ def input_field_to_function_input(ts: dict) -> str:
     if alphabet == "":
         return ""
 
-    return ''.join(random.choice(alphabet) for _ in range(ts["len"]))
+    return "".join(random.choice(alphabet) for _ in range(ts["len"]))
 
 
 def to_function_input(ts: dict) -> list:
@@ -86,9 +95,20 @@ def to_function_input(ts: dict) -> list:
 
 
 def test_quicksort():
-    concrete_test_cases = list(Comer(params))
+    def username_len_filter(username_len, **kwargs):
+        if username_len == 0:
+            return not (
+                kwargs["username_has_lower_case"]
+                and kwargs["username_has_upper_case"]
+                and kwargs["username_has_special_symbols"]
+                and kwargs["username_has_digits"]
+                and kwargs["username_has_unicode"]
+                and kwargs["username_has_whitespace"]
+            )
+
+    concrete_test_cases = list(Comer(params, filter_func=username_len_filter))
     print(len(concrete_test_cases))
-    for testcase in concrete_test_cases:
-        func_input = to_function_input(testcase)
-        # func_output = sorted(func_input)
-        print(testcase, func_input)
+    # for testcase in concrete_test_cases:
+    #     func_input = to_function_input(testcase)
+    # func_output = sorted(func_input)
+    # print(testcase, func_input)
