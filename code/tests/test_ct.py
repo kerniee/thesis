@@ -14,4 +14,4 @@ params = OrderedDict(
 
 def test_simple():
     pairs = list(Comer(params))
-    assert len(pairs) == 5
+    assert len(pairs) == 6

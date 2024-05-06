@@ -47,11 +47,9 @@ class AllPairs:
     def __init__(
         self, parameters, filter_func=lambda x: True, previously_tested=None, n=2
     ):
+        """TODO: check that input arrays are:
+        - (optional) has no duplicated values inside single array / or compress such values
         """
-        TODO: check that input arrays are:
-            - (optional) has no duplicated values inside single array / or compress such values
-        """
-
         if not previously_tested:
             previously_tested = [[]]
 

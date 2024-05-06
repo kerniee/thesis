@@ -72,7 +72,7 @@ def test_quicksort():
 
     abstract_test_cases = list(Comer(params, filter_func=f))
     concrete_test_cases = list(map(to_concrete_values, abstract_test_cases))
-    print(len(concrete_test_cases))
+    assert len(concrete_test_cases) == 15
     # for testcase in concrete_test_cases:
     #     func_input = to_function_input(testcase)
     #     func_output = sorted(func_input)

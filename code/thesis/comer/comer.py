@@ -10,7 +10,7 @@ class Comer(AllPairs):
         parameters: OrderedDict,
         mr_probability=1,
         filter_func: Callable[..., bool | None]
-        | list[Callable[..., bool | None]] = lambda *x: True,
+        | list[Callable[..., bool | None]] = lambda **x: True,
         **kwargs,
     ):
         if not isinstance(filter_func, list):
@@ -39,6 +39,6 @@ class Comer(AllPairs):
     def __next__(self) -> dict:
         r = random.random()
         if r > self.__mr_probability:
-            return super().__next__()._asdict()  # noqa
+            return super().__next__()._asdict()
         else:
-            return super().__next__()._asdict()  # noqa
+            return super().__next__()._asdict()

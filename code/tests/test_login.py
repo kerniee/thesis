@@ -3,7 +3,7 @@ from collections import OrderedDict
 from functools import lru_cache
 from string import ascii_lowercase, ascii_uppercase, digits, punctuation, whitespace
 
-from thesis.comer.comer import Comer
+from thesis.comer import Comer
 
 
 def add_prefix(ts: dict, prefix: str) -> dict:
@@ -107,7 +107,7 @@ def test_quicksort():
             )
 
     concrete_test_cases = list(Comer(params, filter_func=username_len_filter))
-    print(len(concrete_test_cases))
+    assert len(concrete_test_cases) == 56
     # for testcase in concrete_test_cases:
     #     func_input = to_function_input(testcase)
     # func_output = sorted(func_input)
