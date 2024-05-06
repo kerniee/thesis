@@ -11,6 +11,7 @@ python-constraint = "^1.4.0"
 testflows-combinatorics = "^1.1.230921.1194623"
 pytest-playwright = "^0.4.4"
 mezmorize = "^0.28.2"
+testcontainers = "^4.4.0"
 
 
 [tool.poetry.group.dev.dependencies]

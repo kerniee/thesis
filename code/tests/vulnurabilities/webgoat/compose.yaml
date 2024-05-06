@@ -1,0 +1,5 @@
+services:
+  webgoat:
+    image: webgoat/webgoat
+    ports:
+      - 127.0.0.1:4281:8080
