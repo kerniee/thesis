@@ -3,14 +3,15 @@ from typing import Callable, OrderedDict
 
 from thesis.allpairs import AllPairs
 
+FilterType = Callable[..., bool | None]
+
 
 class Comer(AllPairs):
     def __init__(
         self,
         parameters: OrderedDict,
         mr_probability=1,
-        filter_func: Callable[..., bool | None]
-        | list[Callable[..., bool | None]] = lambda **x: True,
+        filter_func: FilterType | list[FilterType] = lambda **x: True,
         **kwargs,
     ):
         if not isinstance(filter_func, list):
@@ -20,12 +21,12 @@ class Comer(AllPairs):
 
         for f in filter_func:
 
-            def __filter_func(x: list) -> bool:
+            def __filter_func(x: list, _f=f) -> bool:
                 if len(parameters) != len(x):
                     return True
                 else:
                     filter_input = {k: v for k, v in zip(parameters.keys(), x)}
-                    res = f(**filter_input)
+                    res = _f(**filter_input)
                     return True if res is None else res
 
             new_filter_func_list.append(__filter_func)

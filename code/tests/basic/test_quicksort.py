@@ -66,7 +66,7 @@ def to_function_input(ts: dict) -> list:
 
 
 def test_quicksort():
-    def f(same_number, negative, positive, zero, extreme_values, order):
+    def f(same_number, zero, **kwargs):
         if same_number == 0:
             return zero == 0
 
