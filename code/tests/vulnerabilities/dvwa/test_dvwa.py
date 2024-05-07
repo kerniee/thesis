@@ -1,6 +1,7 @@
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from pytest import fixture, mark
 
+from tests.generate.test_sql import get_sql_test_cases
 from tests.utils import wait_for_logs
 from tests.vulnerabilities.conftest import VulnerableApp, get_params
 
@@ -19,6 +20,7 @@ class DVWA(VulnerableApp):
                 raise PlaywrightTimeoutError("Failed to load DVWA")
         self.page.get_by_role("button", name="Login").click()
         self.page.get_by_role("button", name="Create / Reset Database").click()
+        self.login("admin", "password")
 
     def login(self, username: str, password: str) -> bool:
         self.page.goto("http://localhost:4280/login.php")
@@ -62,6 +64,6 @@ def test_login(app, username, password):
         assert not app.login(username, password)
 
 
-def test_sql(app):
-    app.login("admin", "password")
-    app.sql("SELECT * FROM users WHERE user='admin' --")
+@mark.parametrize("query", get_sql_test_cases())
+def test_sql(app, query):
+    app.sql(query)
