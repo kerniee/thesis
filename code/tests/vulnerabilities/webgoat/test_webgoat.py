@@ -6,7 +6,7 @@ from pytest import fixture, mark
 from testcontainers.compose import DockerCompose
 
 from tests.generate.test_login import get_login_test_cases
-from tests.vulnurabilities.conftest import VulnerableApp
+from tests.vulnerabilities.conftest import VulnerableApp
 
 PATH = Path(__file__).parent
 BASE_URL = "http://localhost:4281/WebGoat"

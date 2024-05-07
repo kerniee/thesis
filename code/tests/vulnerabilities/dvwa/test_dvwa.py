@@ -2,7 +2,7 @@ from playwright.sync_api import Page
 from pytest import fixture, mark
 
 from tests.generate.test_login import get_login_test_cases
-from tests.vulnurabilities.conftest import VulnerableApp
+from tests.vulnerabilities.conftest import VulnerableApp
 
 
 class DVWA(VulnerableApp):
@@ -36,4 +36,7 @@ if (x := ("admin", "password")) not in params:
 
 @mark.parametrize("username,password", params)
 def test_dvwa(app, username, password):
-    app.login(username, password)
+    if username == "admin" and password == "password":
+        assert app.login(username, password)
+    else:
+        assert not app.login(username, password)
