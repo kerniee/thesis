@@ -1,23 +1,17 @@
-import re
-from pathlib import Path
-
 from playwright.sync_api import Page
 from pytest import fixture, mark
-from testcontainers.compose import DockerCompose
 
-from tests.generate.test_login import get_login_test_cases
-from tests.vulnerabilities.conftest import VulnerableApp
+from tests.utils import wait_for_logs
+from tests.vulnerabilities.conftest import VulnerableApp, _test_app, get_params
 
-PATH = Path(__file__).parent
 BASE_URL = "http://localhost:4281/WebGoat"
 
 
 class WebGoat(VulnerableApp):
     def __init__(self, page: Page):
-        self.page = page
-        self._register()
+        super().__init__(page)
 
-    def _register(self):
+    def init(self) -> None:
         self.page.goto(BASE_URL, timeout=5000)
         self.page.get_by_role("link", name="or register yourself as a new").click()
         self.page.get_by_placeholder("Username").fill("adminadmin")
@@ -40,48 +34,15 @@ class WebGoat(VulnerableApp):
 
 
 @fixture(scope="module")
-def compose():
-    with DockerCompose(PATH) as compose:
-        yield compose
-
-
-@fixture(scope="module")
 def wait_for_compose(compose):
-    while True:
-        stdout, stderr = compose.get_logs()
-
-        if m := re.findall(r"Please browse to (.*) to start using WebGoat...", stdout):
-            return m[0]
+    return wait_for_logs(compose, r"Please browse to (.*) to start using WebGoat...")
 
 
 @fixture(scope="module")
-def context(browser):
-    context = browser.new_context()
-    yield context
-    context.close()
+def app_class(wait_for_compose):
+    return WebGoat
 
 
-@fixture
-def page(context):
-    page = context.new_page()
-    yield page
-    page.close()
-
-
-@fixture(scope="module")
-def app(context, wait_for_compose):
-    page = context.new_page()
-    app = WebGoat(page)
-    return app
-
-
-params = get_login_test_cases("admin", "password")
-params = [(x["username"], x["password"]) for x in params]
-if (x := ("admin", "password")) not in params:
-    params.append(x)
-
-
-@mark.parametrize("username,password", params)
-def test_webgoat(app, username, password, page):
-    app.page = page
-    app.login(username, password)
+@mark.parametrize("username,password", get_params())
+def test_webgoat(app, username, password):
+    _test_app(app, username, password)

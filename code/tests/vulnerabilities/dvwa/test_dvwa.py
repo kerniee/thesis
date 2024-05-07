@@ -1,13 +1,24 @@
-from playwright.sync_api import Page
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from pytest import fixture, mark
 
-from tests.generate.test_login import get_login_test_cases
-from tests.vulnerabilities.conftest import VulnerableApp
+from tests.utils import wait_for_logs
+from tests.vulnerabilities.conftest import VulnerableApp, _test_app, get_params
 
 
 class DVWA(VulnerableApp):
-    def __init__(self, page: Page):
-        self.page = page
+    def init(self) -> None:
+        fails = 1
+        while True:
+            self.page.goto("http://localhost:4280/login.php")
+            try:
+                self.page.wait_for_selector("input[name=Login]", timeout=500)
+                break
+            except PlaywrightTimeoutError:
+                fails += 1
+            if fails > 10:
+                raise PlaywrightTimeoutError("Failed to load DVWA")
+        self.page.get_by_role("button", name="Login").click()
+        self.page.get_by_role("button", name="Create / Reset Database").click()
 
     def login(self, username: str, password: str) -> bool:
         self.page.goto("http://localhost:4280/login.php")
@@ -23,20 +34,17 @@ class DVWA(VulnerableApp):
         raise Exception("Unknown state")
 
 
-@fixture
-def app(page) -> VulnerableApp:
-    return DVWA(page)
+@fixture(scope="module")
+def wait_for_compose(compose):
+    wait_for_logs(compose, r"AH00094: Command line: 'apache2 -D FOREGROUND'")
+    wait_for_logs(compose, r"mariadbd: ready for connections.")
 
 
-params = get_login_test_cases("admin", "password")
-params = [(x["username"], x["password"]) for x in params]
-if (x := ("admin", "password")) not in params:
-    params.append(x)
+@fixture(scope="module")
+def app_class(wait_for_compose):
+    return DVWA
 
 
-@mark.parametrize("username,password", params)
+@mark.parametrize("username,password", get_params())
 def test_dvwa(app, username, password):
-    if username == "admin" and password == "password":
-        assert app.login(username, password)
-    else:
-        assert not app.login(username, password)
+    _test_app(app, username, password, "admin", "password")
