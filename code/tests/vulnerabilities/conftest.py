@@ -53,16 +53,3 @@ def get_params() -> list[tuple[str, str]]:
     if (x := ("admin", "password")) not in params:
         params.append(x)
     return params
-
-
-def _test_app(
-    app: VulnerableApp,
-    username: str,
-    password: str,
-    initial_username: str | None = None,
-    initial_password: str | None = None,
-):
-    if username == initial_username and password == initial_password:
-        assert app.login(username, password)
-    else:
-        assert not app.login(username, password)

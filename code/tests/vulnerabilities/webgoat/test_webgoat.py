@@ -2,7 +2,7 @@ from playwright.sync_api import Page
 from pytest import fixture, mark
 
 from tests.utils import wait_for_logs
-from tests.vulnerabilities.conftest import VulnerableApp, _test_app, get_params
+from tests.vulnerabilities.conftest import VulnerableApp, get_params
 
 BASE_URL = "http://localhost:4281/WebGoat"
 
@@ -44,5 +44,5 @@ def app_class(wait_for_compose):
 
 
 @mark.parametrize("username,password", get_params())
-def test_webgoat(app, username, password):
-    _test_app(app, username, password)
+def test_login(app, username, password):
+    assert not app.login(username, password)
