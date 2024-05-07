@@ -35,3 +35,6 @@ branch = true
 
 [tool.mypy]
 ignore_missing_imports = "True"
+
+[tool.pytest]
+addopts = ["--headed", "-s"]

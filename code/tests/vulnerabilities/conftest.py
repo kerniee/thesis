@@ -4,9 +4,9 @@ from typing import Iterator
 
 from playwright.sync_api import BrowserContext, Page
 from pytest import fixture
-from testcontainers.compose import DockerCompose
 
 from tests.generate.test_login import get_login_test_cases
+from tests.utils import DockerCompose
 
 
 class VulnerableApp:
@@ -19,11 +19,17 @@ class VulnerableApp:
     @abstractmethod
     def login(self, username, password) -> bool: ...
 
+    @abstractmethod
+    def sql(self, query: str) -> str: ...
+
 
 @fixture(scope="module")
-def compose(request) -> DockerCompose:
-    with DockerCompose(Path(request.path).parent) as compose:
-        yield compose
+def compose(request) -> Iterator[DockerCompose]:
+    dc = DockerCompose(Path(request.path).parent)
+    dc.kill()
+    dc.start()
+    yield dc
+    dc.kill()
 
 
 @fixture(scope="module")

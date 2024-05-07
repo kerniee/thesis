@@ -33,6 +33,15 @@ class DVWA(VulnerableApp):
             return True
         raise Exception("Unknown state")
 
+    def sql(self, query: str) -> str:
+        self.page.goto("http://localhost:4280/vulnerabilities/sqli_blind/")
+        self.page.get_by_role("textbox").fill(query)
+        self.page.get_by_role("button", name="Submit").click()
+        pre = self.page.locator("pre")
+        if pre.is_visible():
+            return pre.inner_text()
+        return ""
+
 
 @fixture(scope="module")
 def wait_for_compose(compose):
@@ -51,3 +60,8 @@ def test_login(app, username, password):
         assert app.login(username, password)
     else:
         assert not app.login(username, password)
+
+
+def test_sql(app):
+    app.login("admin", "password")
+    app.sql("SELECT * FROM users WHERE user='admin' --")
