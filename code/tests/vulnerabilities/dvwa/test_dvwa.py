@@ -41,7 +41,7 @@ def wait_for_compose(compose):
 
 
 @fixture(scope="module")
-def app_class(wait_for_compose):
+def app_class(wait_for_compose) -> type[VulnerableApp]:
     return DVWA
 
 

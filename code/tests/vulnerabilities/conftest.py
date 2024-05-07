@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from pathlib import Path
-from typing import Iterator, Type
+from typing import Iterator
 
 from playwright.sync_api import BrowserContext, Page
 from pytest import fixture
@@ -34,7 +34,7 @@ def context(browser) -> Iterator[BrowserContext]:
 
 
 @fixture(scope="module")
-def app_class() -> Type[VulnerableApp]:
+def app_class() -> type[VulnerableApp]:
     raise NotImplementedError
 
 
