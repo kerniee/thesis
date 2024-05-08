@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from thesis.comer import Comer
+from thesis.strategies import Comer
 
 params = OrderedDict(
     {

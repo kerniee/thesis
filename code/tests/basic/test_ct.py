@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from testflows.combinatorics import CoveringArray
 
-from thesis.comer.comer import Comer
+from thesis.strategies import Comer
 
 params = OrderedDict(
     {

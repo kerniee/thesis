@@ -6,7 +6,7 @@ from string import ascii_lowercase, ascii_uppercase, digits, punctuation, whites
 
 from mezmorize import Cache
 
-from thesis.comer import Comer
+from thesis.strategies import Comer
 
 
 def add_prefix(ts: dict, prefix: str) -> dict:

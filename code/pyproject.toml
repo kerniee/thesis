@@ -38,5 +38,5 @@ branch = true
 [tool.mypy]
 ignore_missing_imports = "True"
 
-[tool.pytest.ini_options]
-addopts = ["--headed"]
+#[tool.pytest.ini_options]
+#addopts = ["--headed"]

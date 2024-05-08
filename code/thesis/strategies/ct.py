@@ -1,4 +1,3 @@
-import random
 from typing import Callable, OrderedDict
 
 from thesis.allpairs import AllPairs
@@ -6,7 +5,7 @@ from thesis.allpairs import AllPairs
 FilterType = Callable[..., bool | None]
 
 
-class Comer(AllPairs):
+class CT(AllPairs):
     def __init__(
         self,
         parameters: OrderedDict,
@@ -34,12 +33,8 @@ class Comer(AllPairs):
         def new_filter_func(args: list) -> bool:
             return all(new_f(args) for new_f in new_filter_func_list)
 
-        self.__mr_probability = mr_probability
+        self._mr_probability = mr_probability
         super().__init__(parameters=parameters, filter_func=new_filter_func, **kwargs)
 
     def __next__(self) -> dict:
-        r = random.random()
-        if r > self.__mr_probability:
-            return super().__next__()._asdict()
-        else:
-            return super().__next__()._asdict()
+        return super().__next__()._asdict()

@@ -1,29 +1,7 @@
 import random
 from collections import OrderedDict
 
-from thesis.comer.comer import Comer
-
-# 【Parameters】
-#
-# same_number:[0，[2,10)，[10，20)]
-#
-# negative:[0，[1,20)，[20，40)]
-#
-# positive:[0，[1,20)，[20，40)]
-#
-# zero:[0，[1,5)，[5，10)]
-#
-# add:[0, [1,5)，[5，10)]
-#
-# order:[Positive, negative, out of order]
-#
-# 【Constraints】
-#
-# The length of the array is greater than 0.
-#
-# zero+ positive+ negative >= same_number
-#
-# zero <= same_number
+from thesis.strategies import Comer
 
 params = OrderedDict(
     {
@@ -65,15 +43,24 @@ def to_function_input(ts: dict) -> list:
     return func_input
 
 
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[0]
+        left = [x for x in arr[1:] if x < pivot]
+        right = [x for x in arr[1:] if x >= pivot]
+        return quicksort(left) + [pivot] + quicksort(right)
+
+
 def test_quicksort():
-    def f(same_number, zero, **kwargs):
+    def f(same_number, zero, **_):
         if same_number == 0:
             return zero == 0
 
     abstract_test_cases = list(Comer(params, filter_func=f))
     concrete_test_cases = list(map(to_concrete_values, abstract_test_cases))
     assert len(concrete_test_cases) == 15
-    # for testcase in concrete_test_cases:
-    #     func_input = to_function_input(testcase)
-    #     func_output = sorted(func_input)
-    # print(testcase, func_output)
+    for testcase in concrete_test_cases:
+        func_input = to_function_input(testcase)
+        assert sorted(func_input) == quicksort(func_input)
