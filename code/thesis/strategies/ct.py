@@ -9,10 +9,10 @@ class CT(AllPairs):
     def __init__(
         self,
         parameters: OrderedDict,
-        mr_probability=1,
+        mr_probability: int = 1,
         filter_func: FilterType | list[FilterType] = lambda **x: True,
         **kwargs,
-    ):
+    ) -> None:
         if not isinstance(filter_func, list):
             filter_func = [filter_func]
 
@@ -34,7 +34,10 @@ class CT(AllPairs):
             return all(new_f(args) for new_f in new_filter_func_list)
 
         self._mr_probability = mr_probability
+        self.generated_cases: list[dict] = []
         super().__init__(parameters=parameters, filter_func=new_filter_func, **kwargs)
 
     def __next__(self) -> dict:
-        return super().__next__()._asdict()
+        case = super().__next__()._asdict()
+        self.generated_cases.append(case)
+        return case

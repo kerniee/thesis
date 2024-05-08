@@ -16,10 +16,10 @@ class Node:
         self.in_ = set()
         self.out = set()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.__dict__)
 
-    def inc_counter(self):
+    def inc_counter(self) -> None:
         self.__counter += 1
 
 
