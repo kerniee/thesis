@@ -58,7 +58,7 @@ def test_quicksort():
         if same_number == 0:
             return zero == 0
 
-    abstract_test_cases = list(Comer(params, filter_func=f))
+    abstract_test_cases = list(Comer(params, constraints=f))
     concrete_test_cases = list(map(to_concrete_values, abstract_test_cases))
     assert len(concrete_test_cases) == 15
     for testcase in concrete_test_cases:

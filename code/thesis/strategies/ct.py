@@ -1,6 +1,7 @@
-from typing import Callable, OrderedDict
+from typing import Any, Callable, OrderedDict
 
 from thesis.allpairs import AllPairs
+from thesis.utils import to_ordered_dict
 
 FilterType = Callable[..., bool | None]
 
@@ -8,17 +9,20 @@ FilterType = Callable[..., bool | None]
 class CT(AllPairs):
     def __init__(
         self,
-        parameters: OrderedDict,
-        mr_probability: int = 1,
-        filter_func: FilterType | list[FilterType] = lambda **x: True,
+        parameters: OrderedDict[str, list[Any]],
+        constraints: FilterType | list[FilterType] = lambda **x: True,
         **kwargs,
     ) -> None:
-        if not isinstance(filter_func, list):
-            filter_func = [filter_func]
+        self.constraints = (
+            constraints if isinstance(constraints, list) else [constraints]
+        )
 
-        new_filter_func_list = []
+        if not isinstance(constraints, list):
+            constraints = [constraints]
 
-        for f in filter_func:
+        new_constraints = []
+
+        for f in constraints:
 
             def __filter_func(x: list, _f=f) -> bool:
                 if len(parameters) != len(x):
@@ -28,16 +32,16 @@ class CT(AllPairs):
                     res = _f(**filter_input)
                     return True if res is None else res
 
-            new_filter_func_list.append(__filter_func)
+            new_constraints.append(__filter_func)
 
         def new_filter_func(args: list) -> bool:
-            return all(new_f(args) for new_f in new_filter_func_list)
+            return all(new_f(args) for new_f in new_constraints)
 
-        self._mr_probability = mr_probability
-        self.generated_cases: list[dict] = []
+        self.generated_cases: list[OrderedDict] = []
+        self.parameters = parameters
         super().__init__(parameters=parameters, filter_func=new_filter_func, **kwargs)
 
     def __next__(self) -> dict:
-        case = super().__next__()._asdict()
+        case = to_ordered_dict(super().__next__())
         self.generated_cases.append(case)
         return case

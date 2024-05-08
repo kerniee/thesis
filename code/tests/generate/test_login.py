@@ -146,7 +146,7 @@ cache = Cache(CACHE_TYPE="filesystem", CACHE_DIR=".tmp")
 @cache.memoize(9999999)
 def get_login_test_cases(valid_username, valid_password) -> list[OrderedDict]:
     abstract = list(
-        Comer(params, filter_func=[username_len_filter, password_len_filter])
+        Comer(params, constraints=[username_len_filter, password_len_filter])
     )
     return list(
         map(

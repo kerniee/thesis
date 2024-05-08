@@ -1,12 +1,17 @@
-class MetamorphicRelation:
-    def __init__(self, input_variable, output_variable, transformation_rule):
-        self.input_variable = input_variable
-        self.output_variable = output_variable
-        self.transformation_rule = transformation_rule
+from typing import Callable, OrderedDict
 
-    def apply(self, test_case):
-        # Apply the transformation rule to the input variables
-        transformed_input = [
-            self.transformation_rule(x) for x in test_case[self.input_variable]
-        ]
-        return {**test_case, **{self.output_variable: transformed_input}}
+
+class MR:
+    def __init__(
+        self,
+        in_relation: Callable[[OrderedDict], OrderedDict],
+        out_relation: Callable[[OrderedDict], OrderedDict],
+    ):
+        self.in_relation = in_relation
+        self.out_relation = out_relation
+
+    def follow_up(self, test_case: OrderedDict, test_case_next) -> OrderedDict:
+        return self.in_relation(test_case)
+
+    def apply(self, test_case_output: OrderedDict) -> OrderedDict:
+        return self.out_relation(test_case_output)
