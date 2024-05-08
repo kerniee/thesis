@@ -1,9 +1,10 @@
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from pytest import fixture, mark
 
+from tests.generate.test_login import get_login_test_cases
 from tests.generate.test_sql import get_sql_test_cases
 from tests.utils import wait_for_logs
-from tests.vulnerabilities.conftest import VulnerableApp, get_params
+from tests.vulnerabilities.conftest import VulnerableApp, to_parametrize
 
 
 class DVWA(VulnerableApp):
@@ -52,11 +53,11 @@ def wait_for_compose(compose):
 
 
 @fixture(scope="module")
-def app_class(wait_for_compose) -> type[VulnerableApp]:
-    return DVWA
+def app(page_init, wait_for_compose) -> DVWA:
+    return DVWA(page_init)
 
 
-@mark.parametrize("username,password", get_params())
+@mark.parametrize(*to_parametrize(get_login_test_cases("admin", "password")))
 def test_login(app, username, password):
     if username == "admin" and password == "password":
         assert app.login(username, password)
@@ -64,6 +65,7 @@ def test_login(app, username, password):
         assert not app.login(username, password)
 
 
-@mark.parametrize("query", get_sql_test_cases())
+@mark.parametrize(*to_parametrize(get_sql_test_cases()))
 def test_sql(app, query):
+    print(query)
     app.sql(query)

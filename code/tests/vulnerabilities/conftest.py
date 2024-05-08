@@ -1,26 +1,20 @@
 from abc import abstractmethod
 from pathlib import Path
-from typing import Iterator
+from typing import Iterator, OrderedDict
 
 from playwright.sync_api import BrowserContext, Page
 from pytest import fixture
 
-from tests.generate.test_login import get_login_test_cases
 from tests.utils import DockerCompose
 
 
 class VulnerableApp:
     def __init__(self, page: Page):
         self.page = page
+        self.init()
 
     @abstractmethod
     def init(self) -> None: ...
-
-    @abstractmethod
-    def login(self, username, password) -> bool: ...
-
-    @abstractmethod
-    def sql(self, query: str) -> str: ...
 
 
 @fixture(scope="module")
@@ -40,22 +34,22 @@ def context(browser) -> Iterator[BrowserContext]:
 
 
 @fixture(scope="module")
-def app_class() -> type[VulnerableApp]:
-    raise NotImplementedError
+def page_init(context) -> Page:
+    page = context.new_page()
+    return page
 
 
 @fixture(scope="module")
-def app(context, app_class) -> Iterator[VulnerableApp]:
-    page_init = context.new_page()
-    app = app_class(page_init)
-    app.init()
-    yield app
-    page_init.close()
+def app(page_init) -> VulnerableApp:
+    raise NotImplementedError
 
 
-def get_params() -> list[tuple[str, str]]:
-    params = get_login_test_cases("admin", "password")
-    params = [(x["username"], x["password"]) for x in params]
-    if (x := ("admin", "password")) not in params:
-        params.append(x)
-    return params
+def to_parametrize(
+    params: list[OrderedDict],
+) -> tuple[str, list[list[str]] | list[str]]:
+    keys = ",".join(params[0].keys())
+    if "," in keys:
+        values = list(map(lambda d: list(d.values()), params))
+    else:
+        values = list(map(lambda d: list(d.values())[0], params))
+    return keys, values

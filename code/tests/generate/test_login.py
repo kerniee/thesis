@@ -84,7 +84,7 @@ def input_field_to_function_input(ts: dict) -> str:
     return "".join(random.choice(alphabet) for _ in range(ts["len"]))
 
 
-def to_function_input(ts: dict, valid_username, valid_password) -> dict:
+def to_function_input(ts: dict, valid_username, valid_password) -> OrderedDict:
     if ts["username_valid"]:
         username = valid_username
     else:
@@ -98,10 +98,12 @@ def to_function_input(ts: dict, valid_username, valid_password) -> dict:
     if ts["swapped"]:
         username, password = password, username
 
-    return {
-        "username": username,
-        "password": password,
-    }
+    return OrderedDict(
+        {
+            "username": username,
+            "password": password,
+        }
+    )
 
 
 def username_len_filter(username_len, username_valid, **kwargs) -> bool:
@@ -142,7 +144,7 @@ cache = Cache(CACHE_TYPE="filesystem", CACHE_DIR=".tmp")
 
 
 @cache.memoize(9999999)
-def get_login_test_cases(valid_username, valid_password):
+def get_login_test_cases(valid_username, valid_password) -> list[OrderedDict]:
     abstract = list(
         Comer(params, filter_func=[username_len_filter, password_len_filter])
     )

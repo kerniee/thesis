@@ -11,11 +11,11 @@ params = OrderedDict(
 )
 
 
-def to_function_input(ts: dict) -> str:
-    return ts["st"] + ts["q"] + ts["whsp"]
+def to_function_input(ts: dict) -> OrderedDict:
+    return OrderedDict({"query": ts["st"] + ts["q"] + ts["whsp"]})
 
 
-def get_sql_test_cases():
+def get_sql_test_cases() -> list[OrderedDict]:
     abstract = list(Comer(params))
     return list(
         map(

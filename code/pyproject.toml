@@ -9,10 +9,9 @@ readme = "README.md"
 python = "^3.12"
 python-constraint = "^1.4.0"
 testflows-combinatorics = "^1.1.230921.1194623"
-pytest-playwright = "^0.4.4"
+pytest-playwright = "^0.5.0"
 mezmorize = "^0.28.2"
 testcontainers = "^4.4.0"
-
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
@@ -39,5 +38,5 @@ branch = true
 [tool.mypy]
 ignore_missing_imports = "True"
 
-[tool.pytest]
-addopts = ["--headed", "-s"]
+[tool.pytest.ini_options]
+addopts = ["--headed"]
