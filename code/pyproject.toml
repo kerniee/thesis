@@ -20,6 +20,7 @@ ruff-lsp = "^0.0.53"
 mypy = "^1.10.0"
 coverage = "^7.5.1"
 httpx = "^0.27.0"
+pre-commit = "^3.7.0"
 
 [build-system]
 requires = ["poetry-core"]
