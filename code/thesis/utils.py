@@ -3,5 +3,5 @@ from typing import NamedTuple
 
 
 def to_ordered_dict(t: NamedTuple) -> OrderedDict:
-    fields = t._fields
+    fields = t._fields # noqa
     return OrderedDict({k: v for k, v in zip(fields, list(t))})

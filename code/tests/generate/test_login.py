@@ -140,10 +140,11 @@ def password_len_filter(password_len, password_valid, **kwargs) -> bool:
         )
 
 
-cache = Cache(CACHE_TYPE="filesystem", CACHE_DIR=".tmp")
+# cache = Cache(CACHE_TYPE="filesystem", CACHE_DIR=".tmp")
 
 
-@cache.memoize(9999999)
+# @cache.memoize(9999999)
+@lru_cache()
 def get_login_test_cases(valid_username, valid_password) -> list[OrderedDict]:
     abstract = list(
         Comer(params, constraints=[username_len_filter, password_len_filter])

@@ -1,4 +1,4 @@
-from typing import Any, Callable, OrderedDict
+from typing import Any, Callable, OrderedDict, Iterable
 
 from thesis.allpairs import AllPairs
 from thesis.utils import to_ordered_dict
@@ -8,10 +8,10 @@ FilterType = Callable[..., bool | None]
 
 class CT(AllPairs):
     def __init__(
-        self,
-        parameters: OrderedDict[str, list[Any]],
-        constraints: FilterType | list[FilterType] = lambda **x: True,
-        **kwargs,
+            self,
+            parameters: OrderedDict[str, list[Any]],
+            constraints: FilterType | list[FilterType] = lambda **x: True,
+            **kwargs,
     ) -> None:
         self.constraints = (
             constraints if isinstance(constraints, list) else [constraints]
@@ -40,6 +40,10 @@ class CT(AllPairs):
         self.generated_cases: list[OrderedDict] = []
         self.parameters = parameters
         super().__init__(parameters=parameters, filter_func=new_filter_func, **kwargs)
+
+    def add_testcase_to_tested(self, testcase: OrderedDict) -> None:
+        super().add_combination_to_tested(tuple(testcase.values()))
+        self.generated_cases.append(testcase)
 
     def __next__(self) -> dict:
         case = to_ordered_dict(super().__next__())

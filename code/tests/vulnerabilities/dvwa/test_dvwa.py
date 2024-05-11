@@ -33,6 +33,9 @@ class DVWA(VulnerableApp):
         if self.page.get_by_text(
             "Welcome to Damn Vulnerable Web Application"
         ).is_visible():
+            self.page.get_by_role("link", name="DVWA Security").click()
+            self.page.get_by_role("combobox").select_option("low")
+            self.page.get_by_role("button", name="Submit").click()
             return True
         raise Exception("Unknown state")
 
@@ -41,6 +44,8 @@ class DVWA(VulnerableApp):
         self.page.get_by_role("textbox").fill(query)
         self.page.get_by_role("button", name="Submit").click()
         pre = self.page.locator("pre")
+        if self.page.get_by_text("There was an error.").is_visible():
+            return ""
         if pre.is_visible():
             return pre.inner_text()
         return ""
@@ -68,4 +73,4 @@ def test_login(app, username, password):
 @mark.parametrize(*to_parametrize(get_sql_test_cases()))
 def test_sql(app, query):
     print(query)
-    app.sql(query)
+    assert app.sql(query)

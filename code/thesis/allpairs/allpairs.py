@@ -19,6 +19,7 @@ class Item:
         return self.__weights
 
     def __init__(self, item_id, value):
+        self.__weights = None
         self.__item_id = item_id
         self.__value = value
         self.set_weights([])
@@ -53,48 +54,51 @@ class AllPairs:
         if not previously_tested:
             previously_tested = [[]]
 
-        self.__validate_parameter(parameters)
+        self._validate_parameter(parameters)
 
-        self.__is_ordered_dict_param = isinstance(parameters, OrderedDict)
-        self.__param_name_list = self.__extract_param_name_list(parameters)
-        self.__pairs_class = namedtuple("Pairs", self.__param_name_list)
+        self._is_ordered_dict_param = isinstance(parameters, OrderedDict)
+        self._param_name_list = self.__extract_param_name_list(parameters)
+        self._pairs_class = namedtuple("Pairs", self._param_name_list)
 
-        self.__filter_func = filter_func
-        self.__n = n
-        self.__pairs = PairsStorage(n)
+        self._filter_func = filter_func
+        self._n = n
+        self._pairs = PairsStorage(n)
 
         value_matrix = self.__extract_value_matrix(parameters)
-        self.__max_unique_pairs_expected = get_max_combination_number(value_matrix, n)
-        self.__working_item_matrix = self.__get_working_item_matrix(value_matrix)
+        self._max_unique_pairs_expected = get_max_combination_number(value_matrix, n)
+        self._working_item_matrix = self.__get_working_item_matrix(value_matrix)
 
         for arr in previously_tested:
-            if not arr:
-                continue
+            self.add_combination_to_tested(arr)
 
-            if len(arr) != len(self.__working_item_matrix):
-                raise RuntimeError("previously tested combination is not complete")
+    def add_combination_to_tested(self, arr):
+        if not arr:
+            return
 
-            if not self.__filter_func(arr):
-                raise ValueError("invalid tested combination is provided")
+        if len(arr) != len(self._working_item_matrix):
+            raise RuntimeError("previously tested combination is not complete")
 
-            tested = []
-            for i, val in enumerate(arr):
-                idxs = [
-                    Item(item.id, 0)
-                    for item in self.__working_item_matrix[i]
-                    if item.value == val
-                ]
+        if not self._filter_func(arr):
+            raise ValueError("invalid tested combination is provided")
 
-                if len(idxs) != 1:
-                    raise ValueError(
-                        "value from previously tested combination is not "
-                        "found in the parameters or found more than "
-                        "once"
-                    )
+        tested = []
+        for i, val in enumerate(arr):
+            idxs = [
+                Item(item.id, 0)
+                for item in self._working_item_matrix[i]
+                if item.value == val
+            ]
 
-                tested.append(idxs[0])
+            if len(idxs) != 1:
+                raise ValueError(
+                    "value from previously tested combination is not "
+                    "found in the parameters or found more than "
+                    "once"
+                )
 
-            self.__pairs.add_sequence(tested)
+            tested.append(idxs[0])
+
+        self._pairs.add_sequence(tested)
 
     def __iter__(self):
         return self
@@ -103,20 +107,20 @@ class AllPairs:
         return self.__next__()
 
     def __next__(self):
-        assert len(self.__pairs) <= self.__max_unique_pairs_expected
+        assert len(self._pairs) <= self._max_unique_pairs_expected
 
-        if len(self.__pairs) == self.__max_unique_pairs_expected:
+        if len(self._pairs) == self._max_unique_pairs_expected:
             # no reasons to search further - all pairs are found
             raise StopIteration()
 
-        previous_unique_pairs_count = len(self.__pairs)
-        chosen_item_list = [None] * len(self.__working_item_matrix)
-        indexes = [None] * len(self.__working_item_matrix)
+        previous_unique_pairs_count = len(self._pairs)
+        chosen_item_list = [None] * len(self._working_item_matrix)
+        indexes = [None] * len(self._working_item_matrix)
 
         direction = 1
         i = 0
 
-        while -1 < i < len(self.__working_item_matrix):
+        while -1 < i < len(self._working_item_matrix):
             if direction == 1:
                 # move forward
                 self.__resort_working_array(chosen_item_list[:i], i)
@@ -124,7 +128,7 @@ class AllPairs:
             elif direction == 0 or direction == -1:
                 # scan current array or go back
                 indexes[i] += 1
-                if indexes[i] >= len(self.__working_item_matrix[i]):
+                if indexes[i] >= len(self._working_item_matrix[i]):
                     direction = -1
                     if i == 0:
                         raise StopIteration()
@@ -134,29 +138,29 @@ class AllPairs:
             else:
                 raise ValueError(f"next(): unknown 'direction' code '{direction}'")
 
-            chosen_item_list[i] = self.__working_item_matrix[i][indexes[i]]
+            chosen_item_list[i] = self._working_item_matrix[i][indexes[i]]
 
-            if self.__filter_func(self.__get_values(chosen_item_list[: i + 1])):
+            if self._filter_func(self.__get_values(chosen_item_list[: i + 1])):
                 assert direction > -1
                 direction = 1
             else:
                 direction = 0
             i += direction
 
-            if i == len(self.__working_item_matrix):
-                self.__pairs.add_sequence(chosen_item_list)
-                if len(self.__pairs) == previous_unique_pairs_count:
+            if i == len(self._working_item_matrix):
+                self._pairs.add_sequence(chosen_item_list)
+                if len(self._pairs) == previous_unique_pairs_count:
                     # could not find new unique pairs - go back to scanning
                     direction = -1
                     i += direction
 
-        if len(self.__working_item_matrix) != len(chosen_item_list):
+        if len(self._working_item_matrix) != len(chosen_item_list):
             raise StopIteration()
 
         # replace returned array elements with real values and return it
         return self.__get_iteration_value(chosen_item_list)
 
-    def __validate_parameter(self, value):
+    def _validate_parameter(self, value):
         if isinstance(value, OrderedDict):
             for parameter_list in value.values():
                 if not parameter_list:
@@ -174,15 +178,15 @@ class AllPairs:
                 raise ValueError("each parameter arrays must have at least one item")
 
     def __resort_working_array(self, chosen_item_list, num):
-        for item in self.__working_item_matrix[num]:
-            data_node = self.__pairs.get_node_info(item)
+        for item in self._working_item_matrix[num]:
+            data_node = self._pairs.get_node_info(item)
 
             new_combs = [
                 # numbers of new combinations to be created if this item is
                 # appended to array
                 {key(z) for z in combinations(chosen_item_list + [item], i + 1)}
-                - self.__pairs.get_combs()[i]
-                for i in range(0, self.__n)
+                - self._pairs.get_combs()[i]
+                for i in range(0, self._n)
             ]
 
             # weighting the nodes
@@ -201,7 +205,7 @@ class AllPairs:
 
             item.set_weights(weights)
 
-        self.__working_item_matrix[num].sort(key=cmp_to_key(cmp_item))
+        self._working_item_matrix[num].sort(key=cmp_to_key(cmp_item))
 
     def __get_working_item_matrix(self, parameter_matrix):
         return [
@@ -217,19 +221,19 @@ class AllPairs:
         return [item.value for item in item_list]
 
     def __get_iteration_value(self, item_list):
-        if not self.__param_name_list:
+        if not self._param_name_list:
             return [item.value for item in item_list]
 
-        return self.__pairs_class(*[item.value for item in item_list])
+        return self._pairs_class(*[item.value for item in item_list])
 
     def __extract_param_name_list(self, parameters):
-        if not self.__is_ordered_dict_param:
+        if not self._is_ordered_dict_param:
             return []
 
         return list(parameters)
 
     def __extract_value_matrix(self, parameters):
-        if not self.__is_ordered_dict_param:
+        if not self._is_ordered_dict_param:
             return parameters
 
         return [v for v in parameters.values()]
