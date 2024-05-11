@@ -1,27 +1,43 @@
-\chapter{Introduction}
-\label{chap:intro}
+%!TEX root = ../thesis.tex
 
-\section{Motivation}
+\chapter{Introduction}\label{ch:intro}
 
-In recent years, the rapid evolution of software development has resulted in a significant surge in software errors and vulnerabilities. The escalating number of Common Vulnerabilities and Exposures (CVEs) reported each year reflects the growing challenges faced in ensuring the security and reliability of software systems \cite{CVE}. As the digital landscape becomes increasingly complex and interconnected, the need for robust cybersecurity measures has become paramount.
+\section{Motivation}\label{sec:motivation}
 
-The traditional approaches to software testing are often inadequate in detecting and mitigating vulnerabilities effectively. With the adoption of Continuous Integration practices as a standard in the industry, there's a heightened demand for automated testing methods that can seamlessly integrate into the development workflow. The primary objective is to identify and address bugs and vulnerabilities at the earliest stages of the software development life cycle.
+In recent years, the rapid evolution of software development has resulted in a significant surge in software errors and vulnerabilities.
+The escalating number of Common Vulnerabilities and Exposures (CVEs) reported each year reflects the growing challenges faced in ensuring the security and reliability of software systems \cite{CVE}.
+As the digital landscape becomes increasingly complex and interconnected, the need for robust cybersecurity measures has become paramount.
 
-Several techniques have been employed to enhance software testing and security, including but not limited to code analysis, fuzzing, and domain testing. While these methods have proven to be valuable, there remains a pressing need for more efficient and effective approaches to bolster cybersecurity measures.
+The traditional approaches to software testing are often inadequate in detecting and mitigating vulnerabilities effectively.
+With the adoption of Continuous Integration practices as a standard in the industry, there's a heightened demand for automated testing methods that can seamlessly integrate into the development workflow.
+The primary objective is to identify and address bugs and vulnerabilities at the earliest stages of the software development life cycle.
 
-\section{Proposed Approach}
+Several techniques have been employed to enhance software testing and security, including but not limited to code analysis, fuzzing, and domain testing.
+While these methods have proven to be valuable, there remains a pressing need for more efficient and effective approaches to bolster cybersecurity measures.
 
-This thesis proposes a novel methodology that combines two distinct testing techniques: Metamorphic Testing and Combinatorial Testing. The proposed approach adopts a semi-automated methodology for generating test cases. By leveraging both metamorphic and Combinatorial Testing principles, the aim is to streamline the testing process while ensuring adequate coverage of the system under test. This hybrid approach strikes a balance between manual intervention and automated testing, optimizing the efficiency and effectiveness of the testing process.
 
-One of the key advantages of the proposed method is its ability to achieve comprehensive test coverage with a relatively small number of test cases. Combinatorial Testing, by systematically exploring the interaction of input parameters, helps in reducing the number of test cases required. Meanwhile, Metamorphic Testing enhances the efficiency of the testing process by leveraging the inherent properties of the system.
+\section{Proposed Approach}\label{sec:proposed-approach}
 
-\section{Terminology}
+This thesis proposes a novel methodology that combines two distinct testing techniques: Metamorphic Testing and Combinatorial Testing.
+The proposed approach adopts a semi-automated methodology for generating test cases.
+By leveraging both metamorphic and Combinatorial Testing principles, the aim is to streamline the testing process while ensuring adequate coverage of the system under test.
+This hybrid approach strikes a balance between manual intervention and automated testing, optimizing the efficiency and effectiveness of the testing process.
 
-This section presents an overview of key concepts in the field of metamorphic and Combinatorial Testing, focusing on their applications in cybersecurity. The definitions below lay the groundwork for understanding the methodologies discussed in subsequent sections.
+One of the key advantages of the proposed method is its ability to achieve comprehensive test coverage with a relatively small number of test cases.
+Combinatorial Testing, by systematically exploring the interaction of input parameters, helps in reducing the number of test cases required.
+Meanwhile, Metamorphic Testing enhances the efficiency of the testing process by leveraging the inherent properties of the system.
 
-\subsection{Black Box Testing}
 
-\textbf{Black Box Testing} is a methodology where the internal workings or implementation details of the system under test are not known or considered by the tester. Testing is based solely on defined specifications or thought specs. Black-box testing relies only on the input/output behavior of the software \cite{Testing}.
+\section{Terminology}\label{sec:terminology}
+
+This section presents an overview of key concepts in the field of metamorphic and Combinatorial Testing, focusing on their applications in cybersecurity.
+The definitions below lay the groundwork for understanding the methodologies discussed in subsequent sections.
+
+\subsection{Black Box Testing}\label{subsec:black-box-testing}
+
+\textbf{Black Box Testing} is a methodology where the internal workings or implementation details of the system under test are not known or considered by the tester.
+Testing is based solely on defined specifications or thought specs.
+Black-box testing relies only on the input/output behavior of the software \cite{Testing}.
 
 Some examples of black-box testing techniques include:
 \begin{itemize}
@@ -31,69 +47,86 @@ Some examples of black-box testing techniques include:
     \item Boundary Value Analysis
 \end{itemize}
 
-\subsection{Metamorphic Testing}
+\subsection{Metamorphic Testing}\label{subsec:metamorphic-testing}
 
-\textbf{Metamorphic Testing} is an effective technique for alleviating the oracle problem, testing "untestable" programs where failures are not revealed by checking individual outputs, but by checking expected relations among multiple executions of the program under test \cite{CybersecurityMT}.
+\textbf{Metamorphic Testing} is an effective technique for alleviating the oracle problem, testing \say{untestable} programs where failures are not revealed by checking individual outputs, but by checking expected relations among multiple executions of the program under test \cite{CybersecurityMT}.
 
-\textbf{Metamorphic Relation (MR)} is a property or characteristic that should be maintained between multiple test case outputs. If an MR is violated, it suggests a potential defect in the software \cite{MetamorphicTestingReview}.
+\textbf{Metamorphic Relation (MR)} is a property or characteristic that should be maintained between multiple test case outputs.
+If an MR is violated, it suggests a potential defect in the software \cite{MetamorphicTestingReview}.
 
-\textbf{Metamorphic Group (MG)} is a multiple sequence of inputs related to each other by a particular metamorphic relation. It consists of a sequence of source inputs and follow-up inputs \cite{MetamorphicTestingReview}. \textit{Example:} \textit{MR1: $f(x, y) = f(y, x)$} is a metamorphic relation, and \textit{MG1: {1, 2} $\rightarrow$ {2, 1}} is a metamorphic group.
+\textbf{Metamorphic Group (MG)} is a multiple sequence of inputs related to each other by a particular metamorphic relation.
+It consists of a sequence of source inputs and follow-up inputs \cite{MetamorphicTestingReview}. \textit{Example:} \textit{MR1: $f(x, y) = f(y, x)$} is a metamorphic relation, and \textit{MG1: {1, 2} $\rightarrow$ {2, 1}} is a metamorphic group.
 
-\subsection{Combinatorial Testing}
+\subsection{Combinatorial Testing}\label{subsec:combinatorial-testing}
 
-\textbf{Combinatorial Testing} is a software testing technique that focuses on testing subsets of combinations of input values and preconditions to uncover defects. It's particularly effective when the number of parameters and their possible values is too large for exhaustive testing \cite{FELDERER20161}.
+\textbf{Combinatorial Testing} is a software testing technique that focuses on testing subsets of combinations of input values and preconditions to uncover defects.
+It's particularly effective when the number of parameters and their possible values is too large for exhaustive testing \cite{FELDERER20161}.
 
 Consider a function $f(a, b, c)$ with boolean parameters.
 
-\textbf{Test Case} is a set of conditions or variables under which a tester will determine whether a system under test satisfies requirements or works correctly \cite{comer}. For our function $f(a, b, c)$, a test case could be \textit{a = 1, b = 0, c = 1}.
+\textbf{Test Case} is a set of conditions or variables under which a tester will determine whether a system under test satisfies requirements or works correctly \cite{comer}.
+For our function $f(a, b, c)$, a test case could be \textit{a = 1, b = 0, c = 1}.
 
-\textbf{t-way combination} is a set of t input values, one from each of t input parameters \cite{comer}. For our function $f(a, b, c)$, a 2-way combination could be \textit{a = 1, b = 0}.
-
-\textbf{t-way covering array} is a set of t-way combinations that covers all t-way combinations of input values. It is used to ensure that all combinations of input values are tested at least once. Fig. \ref{fig:CovArray} shows a covering array for $f(a, b, c)$ with 2-way combinations.
+\textbf{t-way combination} is a set of t input values, one from each of t input parameters \cite{comer}.
+For our function $f(a, b, c)$, a 2-way combination could be \textit{a = 1, b = 0}.
 
 \begin{figure}
-\centering
-\begin{tabular}{|c|c|c|}
-    \hline
-    a & b & c \\
-    \hline
-    0 & 0 & 0 \\
-    0 & 1 & 1 \\
-    1 & 0 & 1 \\
-    1 & 1 & 0 \\
-    \hline
-\end{tabular}
-\caption{Covering array for $f(a, b, c)$ with 2-way combinations. Notice, that each 2 columns contain all possible combinations of 0's and 1's.}
-\label{fig:CovArray}
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        a & b & c \\
+        \hline
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        \hline
+    \end{tabular}
+    \caption{Covering array for $f(a, b, c)$ with 2-way combinations. Notice, that each 2 columns contain all possible combinations of 0's and 1's.}
+    \label{fig:CovArray}
 \end{figure}
 
-\subsection{Other Testing Techniques}
+\textbf{t-way covering array} is a set of t-way combinations that covers all t-way combinations of input values.
+It is used to ensure that all combinations of input values are tested at least once.
+Fig. \ref{fig:CovArray} shows a covering array for $f(a, b, c)$ with 2-way combinations.
 
-\textbf{Fuzz Testing} is a technique involving providing invalid, unexpected, or random data as input to a computer program. The program is then monitored for exceptions such as crashes or failing built-in code assertions, or for finding potential memory leaks \cite{Fuzz}.
+\subsection{Other Testing Techniques}\label{subsec:other-testing-techniques}
 
-\textbf{Boundary Value Analysis (BVA)} is a software testing technique in which tests are designed to include representatives of boundary values. It is based on the idea that input values at the extreme ends of the input domain are more likely to cause errors in the system \cite{BVA}.
+\textbf{Fuzz Testing} is a technique involving providing invalid, unexpected, or random data as input to a computer program.
+The program is then monitored for exceptions such as crashes or failing built-in code assertions, or for finding potential memory leaks \cite{Fuzz}.
 
-\textbf{Property-based Testing} is a software testing technique that involves checking whether a system satisfies a set of properties, which are logical assertions about the system's behavior. It is a form of black-box testing, where the tester specifies the properties that the system should satisfy, but does not specify how the system should satisfy them \cite{Hypothesis}. \textit{Metamorphic Testing} is a form of property-based testing.
+\textbf{Boundary Value Analysis (BVA)} is a software testing technique in which tests are designed to include representatives of boundary values.
+It is based on the idea that input values at the extreme ends of the input domain are more likely to cause errors in the system \cite{BVA}.
 
-\subsection{General Testing Terms}
+\textbf{Property-based Testing} is a software testing technique that involves checking whether a system satisfies a set of properties, which are logical assertions about the system's behavior.
+It is a form of black-box testing, where the tester specifies the properties that the system should satisfy, but does not specify how the system should satisfy them \cite{Hypothesis}. \textit{Metamorphic Testing} is a form of property-based testing.
+
+\subsection{General Testing Terms}\label{subsec:general-testing-terms}
 
 \textbf{Oracle Problem} is a problem in software testing where the tester does not know the correct output for a given input, and thus cannot determine if the system under test has passed or failed the test \cite{FELDERER20161}.
 
-\textbf{System Model} is a model of the system under test (SUT) and/or its environment built from informal requirements, existing specification documents, or the SUT itself. It is used as input for automated test generation \cite{FELDERER20161}.
+\textbf{System Model} is a model of the system under test (SUT) and/or its environment built from informal requirements, existing specification documents, or the SUT itself.
+It is used as input for automated test generation \cite{FELDERER20161}.
 
 \textbf{Test Suite} is a collection of test cases that are used to test a software program to show that it has some specified set of behaviors.
 
-\subsection{Cybersecurity}
+\subsection{Cybersecurity}\label{subsec:cybersecurity}
 
 \textbf{Cybersecurity} is the protection of computer systems and networks from information disclosure, theft of or damage to their hardware, software, or electronic data, as well as from the disruption or misdirection of the services they provide \cite{FELDERER20161}.
 
-\textbf{Cybersecurity Testing} is for testing software system requirements related to security properties like confidentiality, integrity, availability, authentication, authorization, and non-repudiation. It involves techniques such as penetration testing, fuzz testing, static and dynamic analysis to identify vulnerabilities \cite{FELDERER20161}.
+\textbf{Cybersecurity Testing} is for testing software system requirements related to security properties like confidentiality, integrity, availability, authentication, authorization, and non-repudiation.
+It involves techniques such as penetration testing, fuzz testing, static and dynamic analysis to identify vulnerabilities \cite{FELDERER20161}.
 
-\subsection{Test Metrics}
+\textbf{SQL Injection} is a type of command injection vulnerability where the attacker can execute arbitrary SQL command inside the application.
+This can lead to unauthorized access to the private data \cite{SQLInjection}.
 
-\textbf{Test Metrics} are used to measure the effectiveness of the testing process. They are used to monitor the progress of testing, assess the quality of the software, and identify areas for improvement.
+\subsection{Test Metrics}\label{subsec:test-metrics}
 
-\textbf{Test Coverage} is a measure used to describe the degree to which the source code of a program is executed when a particular test suite runs. Some categorizations of test coverage provided below:
+\textbf{Test Metrics} are used to measure the effectiveness of the testing process.
+They are used to monitor the progress of testing, assess the quality of the software, and identify areas for improvement.
+
+\textbf{Test Coverage} is a measure used to describe the degree to which the source code of a program is executed when a particular test suite runs.
+Some categorizations of test coverage provided below:
 
 \begin{itemize}
     \item \textbf{Statement Coverage} measures the number of statements in the source code that have been executed by a test suite.
@@ -103,7 +136,7 @@ Consider a function $f(a, b, c)$ with boolean parameters.
 \end{itemize}
 
 
-\section{Structure of the Thesis}
+\section{Structure of the Thesis}\label{sec:structure-of-the-thesis}
 
 This thesis is organized as follows:
 

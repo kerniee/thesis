@@ -1,14 +1,20 @@
+%!TEX root = ../thesis.tex
+
 \chapter{Implementation}
-\label{chap:impl}
+\label{ch:impl}
 
-This section outlines how I created my version of the COMER framework. Additionally, it presents the outcomes of test executions and compare it to the original Java COMER framework implementation.
+This section outlines how I created my version of the COMER framework.
+Additionally, it presents the outcomes of test executions and compare it to the original Java COMER framework implementation.
 
-\section{Details of Implementation}
+\section{Details of Implementation}\label{sec:details-of-implementation}
 
-The implementation is encapsulated within a Python library, which can be seamlessly installed via the Python package manager, pip. This library facilitates testing procedures by requiring input parameters, constraints, metamorphic relations and producing concrete test cases. Library can be integrated with popular Python testing frameworks like Pytest and Unittest.
-Under the hood, the library utilizes the \textit{python-constraint} package, which is a Python constraint solver. The main function responsible for generating test cases is as follows:
+The implementation is encapsulated within a Python library, which can be seamlessly installed via the Python package manager, pip.
+This library facilitates testing procedures by requiring input parameters, constraints, metamorphic relations and producing concrete test cases.
+Library can be integrated with popular Python testing frameworks like Pytest and Unittest.
+Under the hood, the library utilizes the \textit{python-constraint} package, which is a Python constraint solver.
+The main function responsible for generating test cases is as follows:
 
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python,label={lst:lstlisting}]
 def generate_candidates(
     mr: Callable, p: list[list[int]],
     c: list[Callable], pca: list[list[int]],
@@ -30,8 +36,12 @@ def generate_candidates(
 
 \end{lstlisting}
 
-The function adheres to the foundational principles of the COMER framework. Specifically, based on a given probability, $pr$, function choose either Combinatorial Testing (CT) or Metamorphic Testing (MT) based approach. In CT, it uses a Constraint Satisfaction Problem (CSP) solver to generate test cases iteratively. In MT, it selects an existing test case from the provided pool ($pca$) and generates subsequent test cases using the CSP solver.
+The function adheres to the foundational principles of the COMER framework.
+Specifically, based on a given probability, $pr$, function choose either Combinatorial Testing (CT) or Metamorphic Testing (MT) based approach.
+In CT, it uses a Constraint Satisfaction Problem (CSP) solver to generate test cases iteratively.
+In MT, it selects an existing test case from the provided pool ($pca$) and generates subsequent test cases using the CSP solver.
 
-\section{Evaluation}
+\section{Evaluation}\label{sec:evaluation}
 
-To evaluate the efficacy of my implementation of the COMER framework, I conducted a series of experiments comparing its performance with the original Java implementation by Niu \textit{et al.} \cite{comer}. The experiments focused on assessing the framework's ability to generate test cases accurately and efficiently across various scenarios.
+To evaluate the efficacy of my implementation of the COMER framework, I conducted a series of experiments comparing its performance with the original Java implementation by Niu \textit{et al.} \cite{comer}.
+The experiments focused on assessing the framework's ability to generate test cases accurately and efficiently across various scenarios.

@@ -23,7 +23,7 @@
 \usepackage[backend=biber,style=ieee,autocite=inline]{biblatex}
 \bibliography{thesis.bib}
 \DefineBibliographyStrings{english}{%
-  bibliography = {References},}
+bibliography = {References},}
 \usepackage{blindtext}
 
 \usepackage{pdfpages}
@@ -60,6 +60,7 @@
 % \usepackage{anyfontsize}
 % \usepackage{mathptmx}
 % \usepackage{t1enc}
+\usepackage{dirtytalk}
 
 \usepackage{chngcntr}
 \usepackage{upgreek}
@@ -77,7 +78,7 @@
 \usepackage{enumitem}
 \newlist{inlinelist}{enumerate*}{1}
 \setlist*[inlinelist,1]{%
-  label=(\arabic*),
+label=(\arabic*),
 }
 
 % \setcounter{secnumdepth}{4}
@@ -101,23 +102,23 @@
 
 % remember section title
 \renewcommand{\chaptermark}[1]%
-	{\markboth{\chaptername~\thechapter~--~#1}{}}
+{\markboth{\chaptername~\thechapter~--~#1}{}}
 
 % subsection number and title
 \renewcommand{\sectionmark}[1]%
-	{\markright{\thesection\ #1}}
+{\markright{\thesection\ #1}}
 
 \rhead[\fancyplain{}{\bf\leftmark}]%
-      {\fancyplain{}{\bf\thepage}}
+{\fancyplain{}{\bf\thepage}}
 \lhead[\fancyplain{}{\bf\thepage}]%
-      {\fancyplain{}{\bf\rightmark}}
+{\fancyplain{}{\bf\rightmark}}
 \cfoot{} %bfseries
 
 
 \newcommand{\dedication}[1]
-   {\thispagestyle{empty}
+{\thispagestyle{empty}
 
-   \begin{flushleft}\raggedleft #1\end{flushleft}
+\begin{flushleft}\raggedleft #1\end{flushleft}
 }
 
 \begin{document}
