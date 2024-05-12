@@ -1,22 +1,36 @@
 from collections import OrderedDict
 
+from pytest import mark
 from testflows.combinatorics import CoveringArray
 
 from thesis.strategies import Comer
+from thesis.strategies.mr import MR
 
 params = OrderedDict(
     {
-        "Highlight": [0, 1],
-        "StatusBar": [0, 1],
-        "Bookmarks": [0, 1],
-        "SmartTags": [0, 1],
+        "highlight": [0, 1],
+        "status_bar": [0, 1],
+        "bookmarks": [0, 1],
+        "smart_tags": [0, 1],
     }
 )
 
 
-def test_simple():
-    pairs = list(Comer(params))
-    assert len(pairs) == 6
+def constraint(highlight, status_bar, **kwargs):
+    return highlight == status_bar
+
+
+def mr(bookmarks, smart_tags, **kwargs):
+    return OrderedDict({
+        "bookmarks": smart_tags,
+        "smart_tags": bookmarks,
+        **kwargs
+    })
+
+
+@mark.parametrize("testcase", Comer(params, constraint, MR(mr)))
+def test_simple(testcase: OrderedDict):
+    assert testcase["highlight"] == testcase["status_bar"]
 
 
 def test_simple_testflow():

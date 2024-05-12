@@ -4,8 +4,8 @@ from typing import Callable, OrderedDict
 class MR:
     def __init__(
         self,
-        in_relation: Callable[[OrderedDict], OrderedDict],
-        out_relation: Callable[[OrderedDict], OrderedDict],
+        in_relation: Callable[..., OrderedDict],
+        out_relation: Callable[..., OrderedDict] = lambda t: t,
     ):
         self.in_relation = in_relation
         self.out_relation = out_relation

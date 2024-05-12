@@ -1,22 +1,25 @@
 import random
 from collections import OrderedDict
+from typing import Any
 
 from constraint import Problem
 
-from .ct import CT
+from .ct import CT, FilterType
 from .mr import MR
 
 
 class Comer(CT):
     def __init__(
-            self, *args, mrs: None | MR | list[MR] = None, mr_probability=0.5, **kwargs
+            self, parameters: OrderedDict[str, list[Any]],
+            constraints: FilterType | list[FilterType] = lambda **x: True,
+            mrs: None | MR | list[MR] = None, mr_probability=0.5, **kwargs
     ):
         self._mr_probability = mr_probability
         if isinstance(mrs, MR):
             self.mrs = [mrs]
         else:
             self.mrs = mrs if mrs else []
-        super().__init__(*args, **kwargs)
+        super().__init__(parameters, constraints, **kwargs)
 
     def csp_solver(self, case_pre: OrderedDict) -> OrderedDict | None:
         if not self.mrs:

@@ -114,6 +114,29 @@ label=(\arabic*),
 {\fancyplain{}{\bf\rightmark}}
 \cfoot{} %bfseries
 
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepurple}{rgb}{0.5,0,0.3}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{RGB}{250, 250, 250}
+
+\lstset{
+	language=Python,
+	columns=fullflexible,
+	tabsize=4,
+	keywordstyle=\ttb\color{deepblue},
+	emph={self}, 
+	emphstyle=\color{deepurple},
+	keywordstyle=\ttb\color{deepblue},
+	stringstyle=\color{deepgreen},
+	showstringspaces=false,
+ 	backgroundcolor=\color{halfgray},
+ 	frame=tb,
+ 	xleftmargin=5mm,
+ 	aboveskip=5mm,
+ 	framexleftmargin=5mm,
+}
+
 
 \newcommand{\dedication}[1]
 {\thispagestyle{empty}
@@ -146,7 +169,7 @@ label=(\arabic*),
 \include{chapters/chapter2}
 \include{chapters/chapter3}
 \include{chapters/chapter4}
-% \include{chapters/chapter5}
+\include{chapters/chapter5}
 % \include{chapters/chapter6}
 
 
