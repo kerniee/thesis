@@ -9,7 +9,7 @@ params = OrderedDict(
         "negative": [0, range(1, 20), range(20, 40)],
         "positive": [0, range(1, 20), range(20, 40)],
         "zero": [0, range(1, 5), range(5, 10)],
-        "extreme_values": [0, range(1, 5)],
+        "extreme_values": [0, range(1, 5), range(100, 200)],
         "order": ["positive", "negative", "out of order"],
     }
 )
@@ -60,7 +60,8 @@ def test_quicksort():
 
     abstract_test_cases = list(Comer(params, constraints=f))
     concrete_test_cases = list(map(to_concrete_values, abstract_test_cases))
-    assert len(concrete_test_cases) == 15
+    assert len(concrete_test_cases) == 17
     for testcase in concrete_test_cases:
         func_input = to_function_input(testcase)
+        print(func_input)
         assert sorted(func_input) == quicksort(func_input)

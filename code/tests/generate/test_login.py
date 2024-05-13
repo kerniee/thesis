@@ -4,8 +4,6 @@ from collections import OrderedDict
 from functools import lru_cache
 from string import ascii_lowercase, ascii_uppercase, digits, punctuation, whitespace
 
-from mezmorize import Cache
-
 from thesis.strategies import Comer
 
 
@@ -144,7 +142,7 @@ def password_len_filter(password_len, password_valid, **kwargs) -> bool:
 
 
 # @cache.memoize(9999999)
-@lru_cache()
+@lru_cache
 def get_login_test_cases(valid_username, valid_password) -> list[OrderedDict]:
     abstract = list(
         Comer(params, constraints=[username_len_filter, password_len_filter])
@@ -159,7 +157,7 @@ def get_login_test_cases(valid_username, valid_password) -> list[OrderedDict]:
     )
 
 
-def test_quicksort():
+def test_login():
     concrete_test_cases = get_login_test_cases("admin", "password")
     assert len(concrete_test_cases) == 26
     with open("login.json", "w+") as f:

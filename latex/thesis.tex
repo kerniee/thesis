@@ -114,6 +114,9 @@ label=(\arabic*),
 {\fancyplain{}{\bf\rightmark}}
 \cfoot{} %bfseries
 
+\usepackage{pgfplots}
+\pgfplotsset{width=14cm, height=14cm}
+
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepurple}{rgb}{0.5,0,0.3}
@@ -125,7 +128,7 @@ label=(\arabic*),
 	columns=fullflexible,
 	tabsize=4,
 	keywordstyle=\ttb\color{deepblue},
-	emph={self}, 
+	emph={self},
 	emphstyle=\color{deepurple},
 	keywordstyle=\ttb\color{deepblue},
 	stringstyle=\color{deepgreen},
@@ -147,14 +150,17 @@ label=(\arabic*),
 \begin{document}
 
 % \includepdf[pages=-]{title.pdf}
+\includepdf[pages=-, offset=75 -75]{title.pdf}
+% \includepdf[offset=1in -1in,noautoscale, pages=-]{title.pdf}
+
 \tableofcontents
-% \listoftables
-% \listoffigures
+\listoftables
+\listoffigures
 \newpage
 
 
-% \include{chapters/abstract}
-\setcounter{page}{1}
+\include{chapters/abstract}
+\setcounter{page}{8}
 % set manually the number, from which Chapter 1 starts!
 % Why do we put 7 in this case?
 % Title page - page 1
