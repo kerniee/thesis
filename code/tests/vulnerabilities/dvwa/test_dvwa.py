@@ -39,8 +39,7 @@ class DVWA(VulnerableApp):
             return True
         raise Exception("Unknown state")
 
-    def sql(self, query: str) -> str:
-        self.page.goto("http://localhost:4280/vulnerabilities/sqli_blind/")
+    def _sql(self, query: str) -> str:
         self.page.get_by_role("textbox").fill(query)
         self.page.get_by_role("button", name="Submit").click()
         pre = self.page.locator("pre")
@@ -49,6 +48,14 @@ class DVWA(VulnerableApp):
         if pre.is_visible():
             return pre.inner_text()
         return ""
+
+    def sql_blind(self, query: str) -> str:
+        self.page.goto("http://localhost:4280/vulnerabilities/sqli_blind/")
+        return self._sql(query)
+
+    def sql(self, query: str) -> str:
+        self.page.goto("http://localhost:4280/vulnerabilities/sqli/")
+        return self._sql(query)
 
 
 @fixture(scope="module")
@@ -74,3 +81,9 @@ def test_login(app, username, password):
 def test_sql(app, query):
     print(query)
     assert app.sql(query)
+
+
+@mark.parametrize(*to_parametrize(get_sql_test_cases()))
+def test_sql_blind(app, query):
+    print(query)
+    assert app.sql_blind(query)
