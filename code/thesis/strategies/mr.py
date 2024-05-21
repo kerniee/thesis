@@ -10,7 +10,7 @@ class MR:
         self.in_relation = in_relation
         self.out_relation = out_relation
 
-    def follow_up(self, test_case: OrderedDict, test_case_next) -> OrderedDict:
+    def follow_up(self, test_case: OrderedDict) -> OrderedDict:
         return self.in_relation(test_case)
 
     def apply(self, test_case_output: OrderedDict) -> OrderedDict:
