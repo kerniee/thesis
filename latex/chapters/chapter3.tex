@@ -16,14 +16,14 @@ Python was chosen due to its user-friendly syntax and the availability of extens
 The COMER framework serves the purpose of generating test cases, leveraging both traditional Combinatorial Testing (CT) methods and incorporating metamorphic relations during the generation process.
 Upon receiving inputs including a set of metamorphic relations, a set of constraints, and abstract input parameters, COMER generates test cases that adhere to the specified constraints while satisfying certain metamorphic relations.
 
-The framework operates in two primary stages:
+The framework operates in two primary stages, namely:
 
 \subsection{Abstract Test Case Generation}\label{subsec:abstract-test-case-generation}
 
 The algorithm for abstract test case generation encompasses two main pathways.
 At each step, there exists a probability distribution determining the choice between two flows.
 In the first flow, the algorithm functions akin to a conventional CT generation algorithm, employing a greedy approach to generate test cases until achieving the desired t-way coverage.
-Conversely, the second flow involves the selection of a previously generated test case, followed by the generation of subsequent test cases utilizing metamorphic relations. The second flow works by running Constrain Satisfaction Solver to produce follow up test cases giver previous test case, constraints, parameters and metamorphic relations.
+Conversely, the second flow involves selecting a previously generated test case and then generating subsequent test cases utilizing metamorphic relations. The second flow works by running Constrain Satisfaction Solver to produce follow up test cases giver previous test case, constraints, parameters and metamorphic relations.
 
 \subsection{Concrete Test Case Generation}\label{subsec:concrete-test-case-generation}
 
@@ -53,11 +53,11 @@ However, it is important to note that the limitation pertaining to MRs with mult
 
 \section{Vulnerability Selection}\label{sec:vulnerability-selection}
 
-This study utilizes the OWASP Top 10 vulnerabilities to assess the effectiveness of COMER framework in identifying and testing for common web application vulnerabilities. The OWASP Top 10 is a widely recognized list of the most critical security risks facing web applications \cite{OWASP}. 
+This study utilizes the OWASP Top 10 vulnerabilities to assess the effectiveness of COMER framework in identifying and testing for common web application vulnerabilities. The OWASP Top 10 is a widely recognized list of the most critical security risks facing web applications \cite{OWASP}.
 
 Among the OWASP Top 10 vulnerabilities, I selected Injection as the primary testing scenario. Injection attacks involve injecting malicious code or data into an application's inputs in order to extract sensitive information, manipulate database queries, or execute arbitrary commands.
 
-Injection is a particularly critical vulnerability due to its high potential impact and widespread prevalence in web applications. The OWASP Top 10 highlights injection attacks as one of the top 10 most critical security risks facing web applications. The goal of this paper is to test specifically SQL injections and general injection attacks, such as buffer overflow and input sanitization. 
+Injection is a particularly critical vulnerability due to its high potential impact and widespread prevalence in web applications. The OWASP Top 10 highlights injection attacks as one of the top 10 most critical security risks facing web applications. The goal of this paper is to test specifically SQL injections and general injection attacks, such as buffer overflow and input sanitization.
 
 \subsection{Test Case Generation}\label{sec:test-case-generation}
 
@@ -90,7 +90,7 @@ In order to measure the effectiveness of proposed approach different metrics wer
 \begin{itemize}
 	\item \textbf{Detection rate}: Measures the ability of the COMER framework to accurately identify and flag vulnerabilities within the selected web applications. This metric is fundamental in determining the effectiveness of the framework in identifying security threats.
 	\item \textbf{Generation Time Efficiency}: Quantifies the speed and computational resources required by the COMER framework to generate test cases and identify vulnerabilities. This metric is essential for evaluating the practicality and scalability of the approach in real-world scenarios.
-	\item \textbf{Number of test cases}: Similar to \textbf{Generation Time Efficiency}, but quantifies speed of test execution instead of generation. An excessively large number of test cases may also lead to increased testing overhead and resource consumption. 
+	\item \textbf{Number of test cases}: Similar to \textbf{Generation Time Efficiency}, but quantifies speed of test execution instead of generation. An excessively large number of test cases may also lead to increased testing overhead and resource consumption.
 \end{itemize}
 
 Several widely used metrics, like test coverage, were omitted due to the specifics of web security testing. In many instances, accessing the web application's code is not feasible. As a result, metrics suitable for a black box approach were utilized instead.
