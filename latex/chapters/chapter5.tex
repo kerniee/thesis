@@ -3,7 +3,7 @@
 \chapter{Evaluation and Discussion}
 \label{ch:eval}
 
-This chapter presents the outcomes of test executions and compare it to the original Java COMER framework implementation, as well as to CT approach. For this research, I formulated following research questions:
+This chapter presents the outcomes of test executions and compares it to the original Java COMER framework implementation as well as to CT approach. For this research, I formulated the following research questions:
 
 \begin{itemize}
   \item \textbf{RQ1:} How does the COMER framework compare to traditional Combinatorial Testing (CT) methods in terms of test case generation efficiency?
@@ -20,9 +20,9 @@ The experiments focused on assessing the framework's ability to generate test ca
 
 Charts below present the results of the experiments conducted on the COMER framework. The experiments were conducted on the following injection types: SQL Injection on DVWA, SQL Injection on Web Goat, Blind SQL Injection on  Web Goat, and Form Sanitization in login forms. The injection were selected based on the large potential number of errors that could be uncovered and the complexity of the injection, including MR complexity and the number of test cases generated. Also, I choose to include Quicksort as a target for testing because original paper used it in its evaluation. All targets are described in Table~\ref{fig:injections}.
 
-For the SQL injections I used Metamorphic Relations (MRs) to generate test cases. The MRs were designed to simulate various injection attack scenarios, such as UNION injections, where we try to add additional rows to the resulting SELECT, Condition injections, where we try to modify condition check to always be True, and string escape, there we specifically try to escape strings. All of the relations were used to either add a constant to input or reverse some part of the input.
+For the SQL injections, I used Metamorphic Relations (MRs) to generate test cases. The MRs were designed to simulate various injection attack scenarios, such as UNION injections, where we try to add additional rows to the resulting SELECT, Condition injections, where we try to modify condition check to always be True, and string escape, where we specifically try to escape strings. All of the relations were used to either add a constant to input or reverse some part of the input.
 
-The results are shown in the three charts, presenting number of test cases generated in Fig.~\ref{fig:test_cases}, number of faults detected in Fig.~\ref{fig:faults}, and execution time in seconds in Fig.~\ref{fig:exec_time}. The results are considered for three different scenarios: COMER with 75\% probability of selecting MR approach, COMER with 50\% probability of selecting MR approach, COMER with 25\% probability of selecting MR approach, and traditional CT approach using AllPairs algorithm. The selection of such scenarios allows to evaluate the difference between the traditional CT approach and the COMER framework, as well as the impact of the MR approach selection probability on the results.
+The results are shown in the three graphs, which present the number of test cases generated in Fig.~\ref{fig:test_cases}, the number of faults detected in Fig.~\ref{fig:faults}, and the execution time in seconds in Fig.~\ref{fig:exec_time}. The results are considered for three different scenarios: COMER with 75\% probability of selecting the MR approach, COMER with 50\% probability of selecting the MR approach, COMER with 25\% probability of selecting the MR approach, and traditional CT approach using the AllPairs algorithm. The selection of such scenarios allows one to evaluate the difference between the traditional CT approach and the COMER framework, as well as the impact of the MR approach selection probability on the results.
 
 \begin{table}[htbp]
   \centering
@@ -217,7 +217,7 @@ The results are shown in the three charts, presenting number of test cases gener
 
 To determine the efficiency of the approach, I compared the performance of the COMER framework with traditional CT methods in terms of test case generation efficiency. The results of the experiments demonstrate that the COMER framework is capable of generating test cases with a higher detection rate and about the same generation time compared to traditional CT methods. Different percentages of MR approach selection were tested to evaluate the impact of the MR approach on the results. The results indicate that the COMER framework can generate test cases more efficiently than traditional CT methods, especially when the MR approach is selected with a 50\% probability.
 
-However, the number of test cases generated shown in Fig.~\ref{fig:test_cases} were higher than in the traditional CT approach, which may indicate that the COMER framework generates more test cases than necessary. This could potentially lead to increased resource utilization and inefficiency in the testing process. The results suggest that the COMER framework can be used as an effective alternative to traditional CT methods, but further optimization is needed to improve its efficiency. Currently, the utilization of MR approach with 50\% probability seems to be the most effective in terms of test case generation efficiency. It increases execution time by 2 times on average, but also increases the number of faults detected by 2 on average.
+However, the number of test cases generated shown in Fig.~\ref{fig:test_cases} was higher than in the traditional CT approach, which may indicate that the COMER framework generates more test cases than necessary. This could potentially lead to increased resource utilization and inefficiency in the testing process. The results suggest that the COMER framework can be used as an effective alternative to traditional CT methods, but further optimization is needed to improve its efficiency. Currently, the utilization of the MR approach with 50\% probability seems to be the most effective in terms of test case generation efficiency. On average, this method doubles the execution time, but it also doubles the number of detected faults.
 
 \subsection{COMER in Cybersecurity}
 
@@ -227,6 +227,6 @@ The results of the experiments demonstrate that the COMER framework is capable o
 
 Due to the way this evaluation was implemented, it makes it easy to test software not covered by this thesis. This indicates that the COMER approach can be standardized into a framework or toolset for automated security testing. The framework's ability to efficiently identify vulnerabilities and generate test cases makes it a valuable tool for cybersecurity professionals seeking to enhance the security of their applications. The result of my work can be used as a foundation for developing a standardized framework that can be applied across various domains and applications.
 
-\subsection{Systematic Generation of Metamorphic Relations}
+\subsection{Systematic generation of Metamorphic Relations}
 
 The Metamorphic Relations (MRs) employed in this study were manually crafted for each specific test case. The process of fully automating MR generation remains a challenge due to the inherent complexity and domain knowledge it necessitates. The exploration of potential solutions, such as the utilization of Large Language Models (LLMs) or other methodologies, is out of the scope of this research. However, the results of this study demonstrate that the COMER framework has the potential to be extended to support the systematic generation of MRs for complex cybersecurity software.
