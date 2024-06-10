@@ -1,0 +1,60 @@
+\chapter{Реализация}
+\label{chap:impl}
+
+Основная функция, отвечающая за генерацию тестовых примеров, выглядит следующим образом:
+
+\begin{lstlisting}[label={lst:test-case1}]
+def __next__(self) -> OrderedDict:
+	r = random.random()
+	if r > self._mr_probability and self.generated_cases:
+		case_pre = random.choice(self.generated_cases)
+		solution = self.csp_solver(case_pre)
+		if solution:
+			self.add_testcase_to_tested(solution)
+			return solution
+
+	return OrderedDict(super().__next__())
+
+\end{lstlisting}
+
+Функция придерживается основополагающих принципов методологии COMER.
+В частности, на основе заданной вероятности, \verb|self._mr_probability|, функция выбирает подход, основанный на комбинаторном тестировании (КT) или метаморфическом тестировании (MT).
+В КT для итеративной генерации тестовых примеров используется решатель задачи удовлетворения ограничений (Constraint Satisfaction Problem, CSP).
+В MT он выбирает существующий тестовый пример (\verb|case_pre|) из предоставленного пула (\verb|self.generated_cases|) и генерирует последующие тестовые примеры с помощью CSP-решателя.
+
+\section{Использование методологии}
+
+Пример демонстрирует, как использовать фреймворк для тестирования веб-приложения. Предположим, мы хотим протестировать веб-приложение, которое позволяет пользователям добавлять закладки и смарт-теги в свои учетные записи. Мы можем определить набор параметров для наших тестовых случаев следующим образом:
+
+\begin{lstlisting}[label={lst:test-case2}]
+params = OrderedDict(
+	{
+		"highlight": [0, 1],
+		"status_bar": [0, 1],
+		"bookmarks": [0, 1],
+		"smart_tags": [0, 1],
+	}
+)
+\end{lstlisting}
+
+Ограничения определяются как функции, которые принимают тестовый пример на вход и выдают True или False, указывая, должны ли мы включить конкретный тестовый пример в наш домен. Метаморфные связи определяются с использованием тестового случая в качестве входа и нового последующего действия в качестве выхода. В этом конкретном примере мы не определяем дополнительные МС для генерации конкретных тестовых случаев для простоты.
+
+\begin{lstlisting}[label={lst:test-case3}]
+def constraint(highlight, status_bar, **kwargs):
+	return highlight == status_bar
+
+def mr(bookmarks, smart_tags, **kwargs):
+	return OrderedDict({
+		"bookmarks": smart_tags,
+		"smart_tags": bookmarks,
+		**kwargs
+	})
+\end{lstlisting}
+
+После того как домен задан, мы можем создавать абстрактные тестовые примеры. В этом примере мы используем их в качестве входных данных для \textit{Pytest} для создания параметризованных тестовых примеров.
+
+\begin{lstlisting}[label={lst:test-case4}]
+@pytest.mark.parametrize("testcase", Comer(params, constraint, MR(mr)))
+def test_simple(testcase: OrderedDict):
+	assert testcase["highlight"] == testcase["status_bar"]
+\end{lstlisting}

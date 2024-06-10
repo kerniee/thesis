@@ -1,0 +1,218 @@
+@article{comer,
+    title = {Enhance Combinatorial Testing With Metamorphic Relations},
+    author = {Xintao Niu and Yanjie Sun and Huayao Wu and Gang Li and Changhai Nie and Lei Yu and Xiaoyin Wang},
+    journal = {IEEE Transactions on Software Engineering},
+    year = {2021},
+    volume = {48},
+    pages = {5007-5029},
+    doi = {10.1109/TSE.2021.3131548} }
+
+@article{MetaRU,
+    author = {Sofia F. Iakusheva and Anton S. Khritankov},
+    title = {A systematic review of methods for deriving metamorphic relations},
+    journal = {Program Systems: Theory and Applications},
+    doi = {10.25209/2079-3316-2024-15-2-37-86},
+    year = {2024},
+    volume = {15},
+    issue = {2},
+    pages = {37-86},
+}
+
+@inproceedings{Simos2019SQL,
+    author = {Simos, Dimitris E. and Zivanovic, Jovan and Leithner, Manuel},
+    booktitle = {2019 IEEE/ACM 14th International Workshop on Automation of Software Test (AST)},
+    title = {Automated Combinatorial Testing for Detecting SQL Vulnerabilities in Web Applications},
+    year = {2019},
+    volume = {},
+    number = {},
+    pages = {55-61},
+    doi = {10.1109/AST.2019.00014} }
+
+@inproceedings{Garn2014XSS,
+    author = {Garn, Bernhard and Kapsalis, Ioannis and Simos, Dimitris E. and Winkler, Severin},
+    title = {On the Applicability of Combinatorial Testing to Web Application Security Testing: A Case Study},
+    year = {2014},
+    isbn = {9781450329330},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/2631890.2631894},
+    doi = {10.1145/2631890.2631894},
+    abstract = {Case studies for evaluating tools in security testing are powerful. Although they cannot achieve the scientific rigor of formal experiments, the results can provide sufficient information to help professionals judge if a specific technology being evaluated will benefit their organization. This paper reports on a case study done for evaluating and revisiting a recently introduced combinatorial testing methodology used for web application security purposes. It further reports on undertaken practical experiments thus strengthening the applicability of combinatorial testing to web application security testing.},
+    booktitle = {Proceedings of the 2014 Workshop on Joining AcadeMiA and Industry Contributions to Test Automation and Model-Based Testing},
+    pages = {16–21},
+    numpages = {6},
+    keywords = {penetration testing tools, security testing, web application security, Combinatorial testing},
+    location = {San Jose, CA, USA},
+    series = {JAMAICA 2014} }
+
+@article{CybersecurityMT,
+    author = {Segura, Sergio and Towey, Dave and Zhou, Zhi Quan and Chen, Tsong Yueh},
+    journal = {IEEE Software},
+    title = {Metamorphic Testing: Testing the Untestable},
+    year = {2020},
+    volume = {37},
+    number = {3},
+    pages = {46-53},
+    doi = {10.1109/MS.2018.2875968} }
+
+
+@ARTICLE{OpenSSLMT,
+    author = {Chen, Tsong Yueh and Kuo, Fei-Ching and Ma, Wenjuan and Susilo, Willy and Towey, Dave and Voas, Jeffrey and Zhou, Zhi Quan},
+    journal = {Computer},
+    title = {Metamorphic Testing for Cybersecurity},
+    year = {2016},
+    volume = {49},
+    number = {6},
+    pages = {48-55},
+    doi = {10.1109/MC.2016.176} }
+
+@article{ChenPoon2016,
+    title = {METRIC: METamorphic Relation Identification based on the Category-choice framework},
+    journal = {Journal of Systems and Software},
+    volume = {116},
+    pages = {177-190},
+    year = {2016},
+    issn = {0164-1212},
+    doi = {https://doi.org/10.1016/j.jss.2015.07.037},
+    url = {https://www.sciencedirect.com/science/article/pii/S0164121215001624},
+    author = {Tsong Yueh Chen and Pak-Lok Poon and Xiaoyuan Xie},
+    keywords = {Metamorphic testing, Test oracle, Oracle problem},
+    abstract = {Metamorphic testing is a promising technique for testing software systems when the oracle problem exists, and has been successfully applied to various application domains and paradigms. An important and essential task in metamorphic testing is the identification of metamorphic relations, which, due to the absence of a systematic and specification-based methodology, has often been done in an ad hoc manner—something which has hindered the applicability and effectiveness of metamorphic testing. To address this, a systematic methodology for identifying metamorphic relations based on the category-choice framework, called metric, is introduced in this paper. A tool implementing this methodology has been developed and examined in an experiment to determine the viability and effectiveness of metric, with the results of the experiment confirming that metric is both effective and efficient at identifying metamorphic relations.} }
+
+@article{GLSLFuzz,
+    author = {Donaldson, Alastair F. and Evrard, Hugues and Lascu, Andrei and Thomson, Paul},
+    title = {Automated Testing of Graphics Shader Compilers},
+    year = {2017},
+    issue_date = {October 2017},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {1},
+    number = {OOPSLA},
+    url = {https://doi.org/10.1145/3133917},
+    doi = {10.1145/3133917},
+    abstract = {We present an automated technique for finding defects in compilers for graphics shading languages. key challenge in compiler testing is the lack of an oracle that classifies an output as correct or incorrect; this is particularly pertinent in graphics shader compilers where the output is a rendered image that is typically under-specified. Our method builds on recent successful techniques for compiler validation based on metamorphic testing, and leverages existing high-value graphics shaders to create sets of transformed shaders that should be semantically equivalent. Rendering mismatches are then indicative of shader compilation bugs. Deviant shaders are automatically minimized to identify, in each case, a minimal change to an original high-value shader that induces a shader compiler bug. We have implemented the approach as a tool, GLFuzz, targeting the OpenGL shading language, GLSL. Our experiments over a set of 17 GPU and driver configurations, spanning the main 7 GPU designers, have led to us finding and reporting more than 60 distinct bugs, covering all tested configurations. As well as defective rendering, these issues identify security-critical vulnerabilities that affect WebGL, including a significant remote information leak security bug where a malicious web page can capture the contents of other browser tabs, and a bug whereby visiting a malicious web page can lead to a ``blue screen of death'' under Windows 10. Our findings show that shader compiler defects are prevalent, and that metamorphic testing provides an effective means for detecting them automatically.},
+    journal = {Proc. ACM Program. Lang.},
+    articleno = {93},
+    numpages = {29},
+    keywords = {OpenGL, GPUs, shaders, compilers, testing, GLSL} }
+
+@incollection{FELDERER20161,
+    title = {Chapter One - Security Testing: A Survey},
+    editor = {Atif Memon},
+    series = {Advances in Computers},
+    publisher = {Elsevier},
+    volume = {101},
+    pages = {1-51},
+    year = {2016},
+    issn = {0065-2458},
+    doi = {https://doi.org/10.1016/bs.adcom.2015.11.003},
+    url = {https://www.sciencedirect.com/science/article/pii/S0065245815000649},
+    author = {Michael Felderer and Matthias Büchler and Martin Johns and Achim D. Brucker and Ruth Breu and Alexander Pretschner},
+    keywords = {Security testing, Security testing techniques, Model-based security testing, White-box security testing, Black-box security testing, Penetration testing, Security regression testing, Security engineering, Software testing, Survey},
+    abstract = {Identifying vulnerabilities and ensuring security functionality by security testing is a widely applied measure to evaluate and improve the security of software. Due to the openness of modern software-based systems, applying appropriate security testing techniques is of growing importance and essential to perform effective and efficient security testing. Therefore, an overview of actual security testing techniques is of high value both for researchers to evaluate and refine the techniques and for practitioners to apply and disseminate them. This chapter fulfills this need and provides an overview of recent security testing techniques. For this purpose, it first summarize the required background of testing and security engineering. Then, basics and recent developments of security testing techniques applied during the secure software development life cycle, ie, model-based security testing, code-based testing and static analysis, penetration testing and dynamic analysis, as well as security regression testing are discussed. Finally, the security testing techniques are illustrated by adopting them for an example three-tiered web-based business application.} }
+
+@INPROCEEDINGS{SQLInjection,
+    author = {Simos, Dimitris E. and Zivanovic, Jovan and Leithner, Manuel},
+    booktitle = {2019 IEEE/ACM 14th International Workshop on Automation of Software Test (AST)},
+    title = {Automated Combinatorial Testing for Detecting SQL Vulnerabilities in Web Applications},
+    year = {2019},
+    volume = {},
+    number = {},
+    pages = {55-61},
+    keywords = {Grammar;SQL injection;Databases;Tools;Syntactics;Combinatorial testing;security testing;gray-box testing;SQL injection;web applications},
+    doi = {10.1109/AST.2019.00014} }
+
+
+@article{MetamorphicTestingReview,
+    author = {Chen, Tsong and Kuo, Fei-Ching and Liu, Huai and Poon, Pak-Lok and Towey, Dave and Tse, T.H. and Zhou, Zhi Quan},
+    year = {2018},
+    month = {01},
+    pages = {4:1-4:27},
+    title = {Metamorphic Testing: A Review of Challenges and Opportunities},
+    volume = {51},
+    journal = {ACM Computing Surveys},
+    doi = {10.1145/3143561} }
+
+@misc{Hypothesis,
+    title = {Hypothesis: A new approach to property-based testing},
+    volume = {4},
+    url = {http://dx.doi.org/10.21105/joss.01891},
+    DOI = {10.21105/joss.01891},
+    number = {43},
+    journal = {Journal of Open Source Software},
+    publisher = {The Open Journal},
+    author = {MacIver, David and Hatfield-Dodds, Zac and Contributors, Many},
+    year = {2019},
+    month = nov,
+    pages = {1891} }
+
+@inproceedings{Fuzz,
+    author = {Klees, George and Ruef, Andrew and Cooper, Benji and Wei, Shiyi and Hicks, Michael},
+    year = {2018},
+    month = {10},
+    pages = {2123-2138},
+    title = {Evaluating Fuzz Testing},
+    doi = {10.1145/3243734.3243804} }
+
+@article{Testing,
+    author = {Ehmer, Mohd and Khan, Farmeena},
+    year = {2012},
+    month = {06},
+    pages = {},
+    title = {A Comparative Study of White Box, Black Box and Grey Box Testing Techniques},
+    volume = {3},
+    journal = {International Journal of Advanced Computer Science and Applications},
+    doi = {10.14569/IJACSA.2012.030603} }
+
+@inproceedings{BVA,
+    author = {Dobslaw, Felix and Neto, Francisco and Feldt, Robert},
+    year = {2020},
+    month = {10},
+    pages = {346-353},
+    title = {Boundary Value Exploration for Software Analysis},
+    doi = {10.1109/ICSTW50294.2020.00062} }
+
+@misc{CVE,
+    title = {CVE statistics},
+    note = {(accessed Mar. 18, 2024)},
+    url = {https://www.cve.org/About/Metrics#PublishedCVERecords},
+}
+
+@misc{OWASP,
+    title = {OWASP},
+    note = {(accessed May. 11, 2024)},
+    url = {https://owasp.org/www-project-top-ten},
+}
+
+
+@misc{DVWA,
+    title = {DVWA},
+    note = {(accessed May. 11, 2024)},
+    url = {https://github.com/digininja/DVWA},
+}
+
+
+@misc{Webgoat,
+    title = {Webgoat},
+    note = {(accessed May. 11, 2024)},
+    url = {https://owasp.org/www-project-webgoat/},
+}
+
+@misc{pairwise,
+    title = {Pairwise efficiency},
+    note = {(accessed May. 11, 2024)},
+    url = {https://www.pairwise.org/efficiency.html},
+}
+
+
+@misc{python-constraint,
+    title = {python-constraint},
+    note = {(accessed May. 11, 2024)},
+    url = {https://github.com/python-constraint/python-constraint},
+}
+
+@misc{playwright,
+    title = {playwright},
+    note = {(accessed May. 11, 2024)},
+    url = {https://github.com/microsoft/playwright},
+}
